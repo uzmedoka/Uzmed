@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UzMed — Tibbiy Ma'lumotnoma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --blue: #1a3a6b;
+    --accent: #c8a94e;
+    --accent-light: #e8cc7a;
+    --white: #f8f6f0;
+    --gray: #8a9ab5;
+    --light-bg: #eef1f7;
+    --card-bg: #ffffff;
+    --border: #d0d8e8;
+    --red: #c0392b;
+    --green: #1a7a4a;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: ‘IBM Plex Sans’, sans-serif;
+background: var(–light-bg);
+color: var(–navy);
+min-height: 100vh;
+}
+
+/* HEADER */
+header {
+background: var(–navy);
+padding: 0 24px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 64px;
+position: sticky;
+top: 0;
+z-index: 100;
+border-bottom: 2px solid var(–accent);
+}
+
+.logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 26px;
+color: var(–white);
+letter-spacing: 1px;
+}
+
+.logo span { color: var(–accent); }
+
+.header-badge {
+font-size: 11px;
+color: var(–gray);
+font-family: ‘IBM Plex Mono’, monospace;
+letter-spacing: 1px;
+}
+
+/* HERO */
+.hero {
+background: linear-gradient(135deg, var(–navy) 0%, var(–blue) 100%);
+padding: 48px 24px 40px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+
+.hero::before {
+content: ‘’;
+position: absolute;
+top: -50px; right: -50px;
+width: 300px; height: 300px;
+border: 1px solid rgba(200,169,78,0.15);
+border-radius: 50%;
+}
+
+.hero::after {
+content: ‘’;
+position: absolute;
+bottom: -80px; left: -80px;
+width: 400px; height: 400px;
+border: 1px solid rgba(200,169,78,0.10);
+border-radius: 50%;
+}
+
+.hero h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(24px, 5vw, 42px);
+color: var(–white);
+margin-bottom: 10px;
+position: relative;
+}
+
+.hero p {
+color: var(–gray);
+font-size: 14px;
+margin-bottom: 28px;
+font-weight: 300;
+}
+
+.tab-bar {
+display: flex;
+justify-content: center;
+gap: 8px;
+margin-bottom: 24px;
+flex-wrap: wrap;
+}
+
+.tab {
+padding: 10px 22px;
+border-radius: 30px;
+border: 1px solid rgba(255,255,255,0.2);
+background: transparent;
+color: var(–gray);
+cursor: pointer;
+font-family: ‘IBM Plex Sans’, sans-serif;
+font-size: 14px;
+font-weight: 500;
+transition: all 0.25s;
+}
+
+.tab.active {
+background: var(–accent);
+border-color: var(–accent);
+color: var(–navy);
+font-weight: 600;
+}
+
+.search-box {
+max-width: 560px;
+margin: 0 auto;
+position: relative;
+}
+
+.search-box input {
+width: 100%;
+padding: 14px 50px 14px 18px;
+border-radius: 8px;
+border: 2px solid transparent;
+font-family: ‘IBM Plex Sans’, sans-serif;
+font-size: 15px;
+background: rgba(255,255,255,0.95);
+color: var(–navy);
+outline: none;
+transition: border-color 0.2s;
+}
+
+.search-box input:focus { border-color: var(–accent); }
+.search-box input::placeholder { color: #9aabcc; }
+
+.search-icon {
+position: absolute;
+right: 16px;
+top: 50%;
+transform: translateY(-50%);
+font-size: 18px;
+color: var(–accent);
+pointer-events: none;
+}
+
+/* STATS BAR */
+.stats-bar {
+background: var(–card-bg);
+border-bottom: 1px solid var(–border);
+display: flex;
+justify-content: center;
+gap: 0;
+padding: 0;
+overflow-x: auto;
+}
+
+.stat-item {
+padding: 14px 28px;
+border-right: 1px solid var(–border);
+text-align: center;
+flex-shrink: 0;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+font-family: ‘Playfair Display’, serif;
+font-size: 22px;
+color: var(–blue);
+font-weight: 700;
+}
+
+.stat-label {
+font-size: 11px;
+color: var(–gray);
+text-transform: uppercase;
+letter-spacing: 0.8px;
+margin-top: 2px;
+}
+
+/* MAIN */
+main {
+max-width: 900px;
+margin: 0 auto;
+padding: 28px 16px 60px;
+}
+
+.section-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 20px;
+color: var(–blue);
+margin-bottom: 16px;
+padding-bottom: 8px;
+border-bottom: 2px solid var(–accent);
+display: inline-block;
+}
+
+/* MKB CARDS */
+.mkb-grid { display: flex; flex-direction: column; gap: 10px; }
+
+.mkb-card {
+background: var(–card-bg);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 16px 20px;
+display: flex;
+align-items: flex-start;
+gap: 16px;
+transition: all 0.2s;
+animation: fadeIn 0.3s ease;
+}
+
+.mkb-card:hover {
+border-color: var(–accent);
+box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+transform: translateY(-1px);
+}
+
+.mkb-code {
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 13px;
+font-weight: 500;
+color: var(–white);
+background: var(–blue);
+padding: 5px 10px;
+border-radius: 6px;
+white-space: nowrap;
+flex-shrink: 0;
+min-width: 70px;
+text-align: center;
+}
+
+.mkb-code.category { background: var(–navy); font-size: 11px; }
+
+.mkb-info { flex: 1; }
+
+.mkb-name-uz {
+font-size: 15px;
+font-weight: 500;
+color: var(–navy);
+margin-bottom: 4px;
+line-height: 1.4;
+}
+
+.mkb-name-ru {
+font-size: 13px;
+color: var(–gray);
+font-style: italic;
+}
+
+/* DRUG CARDS */
+.drug-grid { display: flex; flex-direction: column; gap: 10px; }
+
+.drug-card {
+background: var(–card-bg);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 16px 20px;
+display: flex;
+align-items: flex-start;
+gap: 16px;
+transition: all 0.2s;
+animation: fadeIn 0.3s ease;
+}
+
+.drug-card:hover {
+border-color: var(–green);
+box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+transform: translateY(-1px);
+}
+
+.drug-num {
+font-family: ‘IBM Plex Mono’, monospace;
+font-size: 12px;
+color: var(–white);
+background: var(–green);
+padding: 5px 10px;
+border-radius: 6px;
+white-space: nowrap;
+flex-shrink: 0;
+min-width: 44px;
+text-align: center;
+}
+
+.drug-info { flex: 1; }
+
+.drug-name {
+font-size: 15px;
+font-weight: 600;
+color: var(–navy);
+margin-bottom: 5px;
+}
+
+.drug-form {
+font-size: 12px;
+color: var(–gray);
+line-height: 1.5;
+font-family: ‘IBM Plex Mono’, monospace;
+}
+
+.drug-category {
+font-size: 11px;
+color: var(–accent);
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+margin-bottom: 4px;
+}
+
+/* EMPTY STATE */
+.empty {
+text-align: center;
+padding: 60px 20px;
+color: var(–gray);
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-text { font-size: 15px; }
+
+/* COUNT INFO */
+.count-info {
+font-size: 13px;
+color: var(–gray);
+margin-bottom: 14px;
+font-family: ‘IBM Plex Mono’, monospace;
+}
+
+.count-info strong { color: var(–blue); }
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(6px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* FOOTER */
+footer {
+background: var(–navy);
+color: var(–gray);
+text-align: center;
+padding: 20px;
+font-size: 12px;
+letter-spacing: 0.5px;
+}
+
+footer span { color: var(–accent); }
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="logo">Uz<span>Med</span></div>
+  <div class="header-badge">TIBBIY MA'LUMOTNOMA</div>
+</header>
+
+<div class="hero">
+  <h1>O'zbekiston Tibbiy Ma'lumotlar Bazasi</h1>
+  <p>MKB-10 kasalliklar tasnifi • Asosiy dori vositalari ro'yxati 2023</p>
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('mkb')">🩺 MKB-10 Kodlar</button>
+    <button class="tab" onclick="switchTab('drug')">💊 Dori Vositalar</button>
+  </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Qidiring: kasallik nomi, kod, yoki dori nomi..." oninput="doSearch()">
+    <div class="search-icon">⌕</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num" id="mkbCount">–</div>
+    <div class="stat-label">MKB-10 Yozuvlar</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="drugCount">–</div>
+    <div class="stat-label">Dori Vositalar</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2023</div>
+    <div class="stat-label">Ma'lumot Yili</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">№34</div>
+    <div class="stat-label">Buyruq Raqami</div>
+  </div>
+</div>
+
+<main>
+  <div id="mkbSection">
+    <div class="section-title">MKB-10 Kasalliklar Tasnifi</div>
+    <div class="count-info" id="mkbCountInfo"></div>
+    <div class="mkb-grid" id="mkbGrid"></div>
+  </div>
+
+  <div id="drugSection" style="display:none;">
+    <div class="section-title">Asosiy Dori Vositalari Ro'yxati 2023</div>
+    <div class="count-info" id="drugCountInfo"></div>
+    <div class="drug-grid" id="drugGrid"></div>
+  </div>
+</main>
+
+<footer>
+  UzMed &mdash; <span>O'zbekiston Sog'liqni Saqlash Vazirligi</span> ma'lumotlari asosida | 2023
+</footer>
+
+<script>
+// ── MKB-10 DATA ──
+const MKB_DATA = [
+  { code: "A00-B99", name: "I SINF — Ba'zi infeksion va parazitar kasalliklar", ru: "КЛАСС I — НЕКОТОРЫЕ ИНФЕКЦИОННЫЕ И ПАРАЗИТАРНЫЕ БОЛЕЗНИ", type: "class" },
+  { code: "A00-A09", name: "ICHAK INFEKSIYALARI", ru: "КИШЕЧНЫЕ ИНФЕКЦИИ", type: "group" },
+  { code: "A00", name: "Vabo", ru: "Холера" },
+  { code: "A00.0", name: "Vabo vibrioni qo'zg'atgan vabo, biovar cholerae", ru: "Холера, вызванная холерным вибрионом 01, биовар cholerae" },
+  { code: "A00.1", name: "Vabo vibrioni qo'zg'atgan vabo, biovar eltor", ru: "Холера, вызванная холерным вибрионом 01, биовар eltor" },
+  { code: "A00.2", name: "Vibrio cholerae O1 bo'lmagan qo'zg'atuvchili vabo", ru: "Холера, вызванная Vibrio cholerae не О1" },
+  { code: "A00.3", name: "Aniqlanmagan vabo", ru: "Холера неуточненная" },
+  { code: "A01", name: "Tif (Terlama) va paratif", ru: "Тиф и паратиф" },
+  { code: "A01.0", name: "Ich terlama", ru: "Брюшной тиф" },
+  { code: "A01.1", name: "Paratif A", ru: "Паратиф A" },
+  { code: "A01.2", name: "Paratif B", ru: "Паратиф B" },
+  { code: "A01.3", name: "Paratif C", ru: "Паратиф C" },
+  { code: "A01.4", name: "Aniqlanmagan paratif", ru: "Паратиф неуточненный" },
+  { code: "A02", name: "Boshqa salmonellez infeksiyalar", ru: "Другие сальмонеллезные инфекции" },
+  { code: "A02.0", name: "Salmonellyozli enterit", ru: "Сальмонеллезный энтерит" },
+  { code: "A02.1", name: "Salmonellyozli septitsemiya", ru: "Сальмонеллезная септицемия" },
+  { code: "A02.2", name: "Lokalizatsiyalangan salmonellyoz infeksiyasi", ru: "Локализованная сальмонеллезная инфекция" },
+  { code: "A03", name: "Shigellyoz (dizenteriya)", ru: "Шигеллез" },
+  { code: "A03.0", name: "Shigella dysenteriae qo'zg'atgan shigellyoz", ru: "Шигеллез, вызванный Shigella dysenteriae" },
+  { code: "A03.1", name: "Shigella flexneri qo'zg'atgan shigellyoz", ru: "Шигеллез, вызванный Shigella flexneri" },
+  { code: "A04", name: "Boshqa bakterial ichak infeksiyalari", ru: "Другие бактериальные кишечные инфекции" },
+  { code: "A04.0", name: "Enteropatogen E. coli infeksiyasi", ru: "Инфекция, вызванная энтеропатогенными E. coli" },
+  { code: "A05", name: "Oziq-ovqat zaharlanishlari", ru: "Другие бактериальные пищевые отравления" },
+  { code: "A06", name: "Amyobiaz", ru: "Амёбиаз" },
+  { code: "A06.0", name: "O'tkir amyobiyoz dizenteriya", ru: "Острая амёбная дизентерия" },
+  { code: "A09", name: "Gasterenterit va kolit", ru: "Гастроэнтерит и колит" },
+  { code: "A10-A19", name: "SIL (TUBERKULYOZ)", ru: "ТУБЕРКУЛЁЗ", type: "group" },
+  { code: "A15", name: "Bakteriologik va gistologik tasdiqlangan o'pka sili", ru: "Туберкулёз органов дыхания, подтверждённый бактериологически" },
+  { code: "A16", name: "Bakteriologik tasdiqlangan o'pka sili", ru: "Туберкулёз органов дыхания без подтверждения" },
+  { code: "A17", name: "Asab sistemasi sili", ru: "Туберкулёз нервной системы" },
+  { code: "A18", name: "Boshqa organlardagi sil", ru: "Туберкулёз других органов" },
+  { code: "A19", name: "Tarqalgan sil", ru: "Диссеминированный туберкулёз" },
+  { code: "A20-A28", name: "BA'ZI ZOONOTIK BAKTERIAL KASALLIKLAR", ru: "НЕКОТОРЫЕ ЗООНОЗНЫЕ БАКТЕРИАЛЬНЫЕ БОЛЕЗНИ", type: "group" },
+  { code: "A20", name: "O'lat (chuma)", ru: "Чума" },
+  { code: "A21", name: "Tulyaremiya", ru: "Туляремия" },
+  { code: "A22", name: "Sibirya yarasi (Anthrax)", ru: "Сибирская язва" },
+  { code: "A23", name: "Brucelloz", ru: "Бруцеллёз" },
+  { code: "A27", name: "Leptospiroz", ru: "Лептоспироз" },
+  { code: "A30-A49", name: "BOSHQA BAKTERIAL KASALLIKLAR", ru: "ДРУГИЕ БАКТЕРИАЛЬНЫЕ БОЛЕЗНИ", type: "group" },
+  { code: "A30", name: "Moxov (Lepra)", ru: "Лепра" },
+  { code: "A33", name: "Yangi tug'ilgan bolalarda qoqshol", ru: "Столбняк новорождённых" },
+  { code: "A34", name: "Akusherlik qoqsholi", ru: "Акушерский столбняк" },
+  { code: "A35", name: "Boshqa qoqshol", ru: "Другой столбняк" },
+  { code: "A36", name: "Difteriya", ru: "Дифтерия" },
+  { code: "A37", name: "Ko'kyutal", ru: "Коклюш" },
+  { code: "A38", name: "Qizilcha (Qizamiq)", ru: "Скарлатина" },
+  { code: "A39", name: "Meningokokk infeksiyasi", ru: "Менингококковая инфекция" },
+  { code: "A40", name: "Streptokokkli septitsemiya", ru: "Стрептококковая септицемия" },
+  { code: "A41", name: "Boshqa septitsemiya", ru: "Другая септицемия" },
+  { code: "A50-A64", name: "JINSIY YO'L BILAN YUQADIGAN INFEKSIYALAR", ru: "ИНФЕКЦИИ, ПЕРЕДАВАЕМЫЕ ПОЛОВЫМ ПУТЁМ", type: "group" },
+  { code: "A50", name: "Tug'ma zaxm (Sifilis)", ru: "Врождённый сифилис" },
+  { code: "A51", name: "Birlamchi zaxm", ru: "Ранний сифилис" },
+  { code: "A54", name: "Gonokokkli infeksiya", ru: "Гонококковая инфекция" },
+  { code: "A55", name: "Xlamidiyli limfogranulema", ru: "Хламидийная лимфогранулема" },
+  { code: "A60-A79", name: "BOSHQA VIRUSLI KASALLIKLAR", ru: "ДРУГИЕ ВИРУСНЫЕ БОЛЕЗНИ", type: "group" },
+  { code: "B00-B09", name: "VIRUS VA TERINI ZARARLANTIRUVCHI INFEKSIYALAR", ru: "ВИРУСНЫЕ ИНФЕКЦИИ, ХАРАКТЕРИЗУЮЩИЕСЯ ПОРАЖЕНИЕМ КОЖИ", type: "group" },
+  { code: "B00", name: "Gerpes simplex infeksiyasi", ru: "Инфекция, вызванная вирусом простого герпеса" },
+  { code: "B01", name: "Suv chechagi (Varisella)", ru: "Ветряная оспа" },
+  { code: "B02", name: "Herpes zoster (Kamarli gerpes)", ru: "Опоясывающий лишай" },
+  { code: "B05", name: "Qizamiq (Kori)", ru: "Корь" },
+  { code: "B06", name: "Qizilcha (Roseola)", ru: "Краснуха" },
+  { code: "B15-B19", name: "VIRUSLI GEPATITLAR", ru: "ВИРУСНЫЙ ГЕПАТИТ", type: "group" },
+  { code: "B15", name: "O'tkir A gepatit", ru: "Острый гепатит A" },
+  { code: "B16", name: "O'tkir B gepatit", ru: "Острый гепатит B" },
+  { code: "B17", name: "Boshqa o'tkir virusli gepatitlar", ru: "Другие острые вирусные гепатиты" },
+  { code: "B18", name: "Surunkali virusli gepatit", ru: "Хронический вирусный гепатит" },
+  { code: "B20-B24", name: "OIV INFEKSIYASI", ru: "БОЛЕЗНЬ, ВЫЗВАННАЯ ВИЧ", type: "group" },
+  { code: "B20", name: "OIV kasalligi, infeksion kasalliklarni keltirib chiqargan", ru: "Болезнь, вызванная ВИЧ, с проявлениями инфекционных болезней" },
+  { code: "B24", name: "Aniqlanmagan OIV kasalligi", ru: "Болезнь, вызванная ВИЧ, неуточнённая" },
+  { code: "C00-D48", name: "II SINF — O'SMALAR", ru: "КЛАСС II — НОВООБРАЗОВАНИЯ", type: "class" },
+  { code: "C00-C14", name: "LAB, OG'IZ BO'SHLIG'I VA HALQUM O'SMALARI", ru: "ЗЛОКАЧЕСТВЕННЫЕ НОВООБРАЗОВАНИЯ ГУБЫ, ПОЛОСТИ РТА И ГЛОТКИ", type: "group" },
+  { code: "C15", name: "Qizilo'ngach o'smasi", ru: "Злокачественное новообразование пищевода" },
+  { code: "C16", name: "Me'da o'smasi", ru: "Злокачественное новообразование желудка" },
+  { code: "C18", name: "Yo'g'on ichak o'smasi", ru: "Злокачественное новообразование ободочной кишки" },
+  { code: "C20", name: "To'g'ri ichak o'smasi", ru: "Злокачественное новообразование прямой кишки" },
+  { code: "C22", name: "Jigar va o't yo'llari o'smasi", ru: "Злокачественное новообразование печени" },
+  { code: "C25", name: "Oshqozon osti bezi o'smasi", ru: "Злокачественное новообразование поджелудочной железы" },
+  { code: "C32", name: "Hiqildoq o'smasi", ru: "Злокачественное новообразование гортани" },
+  { code: "C33", name: "Traxeya o'smasi", ru: "Злокачественное новообразование трахеи" },
+  { code: "C34", name: "Bronx va o'pka o'smasi", ru: "Злокачественное новообразование бронхов и лёгкого" },
+  { code: "C43", name: "Melanoma", ru: "Злокачественная меланома кожи" },
+  { code: "C50", name: "Ko'krak bezi o'smasi", ru: "Злокачественное новообразование молочной железы" },
+  { code: "C53", name: "Bachadon bo'yni o'smasi", ru: "Злокачественное новообразование шейки матки" },
+  { code: "C54", name: "Bachadon tanasi o'smasi", ru: "Злокачественное новообразование тела матки" },
+  { code: "C56", name: "Tuxumdon o'smasi", ru: "Злокачественное новообразование яичника" },
+  { code: "C61", name: "Prostata bezi o'smasi", ru: "Злокачественное новообразование предстательной железы" },
+  { code: "C64", name: "Buyrak o'smasi", ru: "Злокачественное новообразование почки" },
+  { code: "C67", name: "Siydik pufagi o'smasi", ru: "Злокачественное новообразование мочевого пузыря" },
+  { code: "C71", name: "Bosh miya o'smasi", ru: "Злокачественное новообразование головного мозга" },
+  { code: "C81", name: "Xojkin limfomasi", ru: "Болезнь Ходжкина" },
+  { code: "C90", name: "Ko'p marta mielon", ru: "Множественная миелома" },
+  { code: "C91", name: "Limfoid leykemiya", ru: "Лимфоидный лейкоз" },
+  { code: "C92", name: "Mieloid leykemiya", ru: "Миелоидный лейкоз" },
+  { code: "E00-E90", name: "IV SINF — ENDOKRIN, OZIQ-OVQAT VA MODDALAR ALMASHINUVI KASALLIKLARI", ru: "КЛАСС IV — БОЛЕЗНИ ЭНДОКРИННОЙ СИСТЕМЫ", type: "class" },
+  { code: "E10", name: "1-toifa qandli diabet (insulin qaram)", ru: "Инсулинозависимый сахарный диабет" },
+  { code: "E11", name: "2-toifa qandli diabet", ru: "Инсулинонезависимый сахарный диабет" },
+  { code: "E14", name: "Aniqlanmagan qandli diabet", ru: "Сахарный диабет неуточнённый" },
+  { code: "E05", name: "Tirotoksikoz (gipertireoz)", ru: "Тиреотоксикоз" },
+  { code: "E06", name: "Tiroidit", ru: "Тиреоидит" },
+  { code: "E03", name: "Boshqa gipotiroidizm", ru: "Другой гипотиреоз" },
+  { code: "E40-E46", name: "OZIQLANISH YETISHMOVCHILIGI", ru: "НЕДОСТАТОЧНОСТЬ ПИТАНИЯ", type: "group" },
+  { code: "E50", name: "A vitamini yetishmovchiligi", ru: "Недостаточность витамина A" },
+  { code: "E55", name: "D vitamini yetishmovchiligi", ru: "Недостаточность витамина D" },
+  { code: "F00-F99", name: "V SINF — RUHIY BUZILISHLAR", ru: "КЛАСС V — ПСИХИЧЕСКИЕ РАССТРОЙСТВА", type: "class" },
+  { code: "F00", name: "Alzgeymer kasalligidagi demensiya", ru: "Деменция при болезни Альцгеймера" },
+  { code: "F20", name: "Shizofreniya", ru: "Шизофрения" },
+  { code: "F30", name: "Maniakal epizod", ru: "Маниакальный эпизод" },
+  { code: "F32", name: "Depressiv epizod", ru: "Депрессивный эпизод" },
+  { code: "F40", name: "Fobiyali xavotir buzilishi", ru: "Фобические тревожные расстройства" },
+  { code: "F41", name: "Boshqa xavotir buzilishlari", ru: "Другие тревожные расстройства" },
+  { code: "G00-G99", name: "VI SINF — ASAB TIZIMI KASALLIKLARI", ru: "КЛАСС VI — БОЛЕЗНИ НЕРВНОЙ СИСТЕМЫ", type: "class" },
+  { code: "G20", name: "Parkinson kasalligi", ru: "Болезнь Паркинсона" },
+  { code: "G30", name: "Alzgeymer kasalligi", ru: "Болезнь Альцгеймера" },
+  { code: "G35", name: "Ko'p skleroz", ru: "Рассеянный склероз" },
+  { code: "G40", name: "Epilepsiya", ru: "Эпилепсия" },
+  { code: "G43", name: "Migren", ru: "Мигрень" },
+  { code: "G45", name: "O'tkinchi miyacha ischemik hujumlar", ru: "Транзиторные ишемические атаки" },
+  { code: "I00-I99", name: "IX SINF — QON AYLANISH TIZIMI KASALLIKLARI", ru: "КЛАСС IX — БОЛЕЗНИ СИСТЕМЫ КРОВООБРАЩЕНИЯ", type: "class" },
+  { code: "I10", name: "Arterial gipertenziya (bosim)", ru: "Эссенциальная гипертония" },
+  { code: "I20", name: "Stenokardiya (angina pektoris)", ru: "Стенокардия" },
+  { code: "I21", name: "O'tkir miokard infarkti", ru: "Острый инфаркт миокарда" },
+  { code: "I25", name: "Surunkali ishemik yurak kasalligi", ru: "Хроническая ишемическая болезнь сердца" },
+  { code: "I48", name: "Boylamli yurak fibrillatsiyasi", ru: "Фибрилляция и трепетание предсердий" },
+  { code: "I50", name: "Yurak yetishmovchiligi", ru: "Сердечная недостаточность" },
+  { code: "I60", name: "Subaranoidli qon quyilish", ru: "Субарахноидальное кровоизлияние" },
+  { code: "I61", name: "Miyaga qon quyilish", ru: "Внутримозговое кровоизлияние" },
+  { code: "I63", name: "Miyacha infarkti (insult)", ru: "Инфаркт мозга" },
+  { code: "I64", name: "Insult (aniqlanmagan)", ru: "Инсульт неуточнённый" },
+  { code: "J00-J99", name: "X SINF — NAFAS OLISH TIZIMI KASALLIKLARI", ru: "КЛАСС X — БОЛЕЗНИ ОРГАНОВ ДЫХАНИЯ", type: "class" },
+  { code: "J00", name: "O'tkir nazofaringit (shamollash)", ru: "Острый назофарингит" },
+  { code: "J06", name: "O'tkir yuqori nafas yo'li infeksiyasi", ru: "Острые инфекции верхних дыхательных путей" },
+  { code: "J18", name: "Pnevmoniya (aniqlanmagan)", ru: "Пневмония неуточнённая" },
+  { code: "J20", name: "O'tkir bronxit", ru: "Острый бронхит" },
+  { code: "J44", name: "Surunkali obstruktiv o'pka kasalligi (COPD)", ru: "Другая хроническая обструктивная лёгочная болезнь" },
+  { code: "J45", name: "Bronxial astma", ru: "Астма" },
+  { code: "K00-K93", name: "XI SINF — HAZM TIZIMI KASALLIKLARI", ru: "КЛАСС XI — БОЛЕЗНИ ОРГАНОВ ПИЩЕВАРЕНИЯ", type: "class" },
+  { code: "K25", name: "Me'da yarasi", ru: "Язва желудка" },
+  { code: "K26", name: "O'n ikki barmoqli ichak yarasi", ru: "Язва двенадцатиперстной кишки" },
+  { code: "K29", name: "Gastrit va duodenit", ru: "Гастрит и дуоденит" },
+  { code: "K35", name: "O'tkir appenditsit", ru: "Острый аппендицит" },
+  { code: "K40", name: "Qorin churrasi (grija)", ru: "Паховая грыжа" },
+  { code: "K70", name: "Alkogol jigar kasalligi", ru: "Алкогольная болезнь печени" },
+  { code: "K73", name: "Surunkali gepatit", ru: "Хронический гепатит" },
+  { code: "K74", name: "Jigar fibrozi va sirozi", ru: "Фиброз и цирроз печени" },
+  { code: "K80", name: "O't tosh kasalligi (xolelitiyaz)", ru: "Желчнокаменная болезнь" },
+  { code: "K85", name: "O'tkir pankreatit", ru: "Острый панкреатит" },
+  { code: "M00-M99", name: "XIII SINF — MUSHAK-SUYAK TIZIMI KASALLIKLARI", ru: "КЛАСС XIII — БОЛЕЗНИ КОСТНО-МЫШЕЧНОЙ СИСТЕМЫ", type: "class" },
+  { code: "M05", name: "Seropozitiv revmatoid artrit", ru: "Серопозитивный ревматоидный артрит" },
+  { code: "M10", name: "Podagra", ru: "Подагра" },
+  { code: "M16", name: "Son-chanoq bo'g'imi artrozi", ru: "Коксартроз" },
+  { code: "M17", name: "Tizza bo'g'imi artrozi", ru: "Гонартроз" },
+  { code: "M42", name: "Umurtqa pog'onasi osteoxondrozi", ru: "Остеохондроз позвоночника" },
+  { code: "M54", name: "Dorzalgiya (bel og'rig'i)", ru: "Дорсалгия" },
+  { code: "N00-N99", name: "XIV SINF — SIYDIK-TANOSIL ORGANLARI KASALLIKLARI", ru: "КЛАСС XIV — БОЛЕЗНИ МОЧЕПОЛОВОЙ СИСТЕМЫ", type: "class" },
+  { code: "N18", name: "Surunkali buyrak yetishmovchiligi", ru: "Хроническая болезнь почек" },
+  { code: "N20", name: "Buyrak va siydik yo'li toshlari", ru: "Камни почки и мочеточника" },
+  { code: "N39", name: "Siydik yo'li kasalliklari", ru: "Другие болезни мочевыделительной системы" },
+  { code: "O00-O99", name: "XV SINF — HOMILADORLIK, TUG'ISH VA TUG'RUQDAN KEYINGI HOLAT", ru: "КЛАСС XV — БЕРЕМЕННОСТЬ, РОДЫ И ПОСЛЕРОДОВОЙ ПЕРИОД", type: "class" },
+  { code: "O10", name: "Homiladorlikda mavjud gipertenziya", ru: "Существовавшая ранее гипертония, осложняющая беременность" },
+  { code: "O14", name: "Preeklampsiya", ru: "Преэклампсия" },
+  { code: "O15", name: "Eklampsiya", ru: "Эклампсия" },
+  { code: "O20", name: "Erta homiladorlikda qon ketish", ru: "Кровотечение в ранние сроки беременности" },
+  { code: "S00-T98", name: "XIX SINF — JAROHATLAR VA ZAHARLANISHLAR", ru: "КЛАСС XIX — ТРАВМЫ, ОТРАВЛЕНИЯ И ДРУГИЕ ПОСЛЕДСТВИЯ ВНЕШНИХ ПРИЧИН", type: "class" },
+  { code: "S06", name: "Bosh miya jarohat", ru: "Внутричерепная травма" },
+  { code: "S72", name: "Son suyagi sinishi", ru: "Перелом бедренной кости" },
+  { code: "T36-T65", name: "ZAHARLI MODDALAR TA'SIRI", ru: "ОТРАВЛЕНИЕ ЛЕКАРСТВЕННЫМИ СРЕДСТВАМИ", type: "group" },
+  { code: "T71", name: "Bo'g'ilishdan o'lim", ru: "Асфиксия" },
+  { code: "Z00-Z99", name: "XXI SINF — SOG'LIQ HOLATINI TA'SIRLAYDIGAN OMILLAR", ru: "КЛАСС XXI — ФАКТОРЫ, ВЛИЯЮЩИЕ НА СОСТОЯНИЕ ЗДОРОВЬЯ", type: "class" },
+];
+
+// ── DRUG DATA ──
+const DRUG_DATA = [
+  { num: "1", cat: "Markaziy asab tizimiga ta'sir qiluvchi vositalar", name: "Izofluran", form: "100 ml; 250 ml ingalatsiya uchun eritma" },
+  { num: "2", cat: "Markaziy asab tizimiga ta'sir qiluvchi vositalar", name: "Sevofluran", form: "250 ml ingalatsiya uchun eritma" },
+  { num: "3", cat: "Narkoz vositalari", name: "Natriy oksibutirat", form: "200 mg/ml 5 ml; 10 ml inyeksiya uchun eritma" },
+  { num: "4", cat: "Narkoz vositalari", name: "Tiopental natriy", form: "0,5 g; 1,0 g inyeksiya uchun liofillangan kukun" },
+  { num: "5", cat: "Narkoz vositalari", name: "Ketamin", form: "50 mg/ml 2 ml; 5 ml inyeksiya uchun eritma" },
+  { num: "6", cat: "Narkoz vositalari", name: "Propofol", form: "1% 10 ml; 20 ml; 50 ml / 2% 50 ml inyeksiya uchun emulsiya" },
+  { num: "7", cat: "Uxlatuvchi vositalar", name: "Midazolam", form: "5 mg/ml 1 ml; 3 ml inyeksiya uchun eritma" },
+  { num: "8", cat: "Tutqanoqqa qarshi vositalar", name: "Fenobarbital", form: "100 mg tabletkalar, kukun" },
+  { num: "9", cat: "Tutqanoqqa qarshi vositalar", name: "Karbamazepin", form: "200 mg; 400 mg tabletkalar" },
+  { num: "10", cat: "Tutqanoqqa qarshi vositalar", name: "Valproat kislotasi", form: "300–500 mg tabletkalar, kapsulalar, sirop, inyeksiya" },
+  { num: "11", cat: "Tutqanoqqa qarshi vositalar", name: "Lamotridjin", form: "25 mg; 50 mg; 100 mg tabletkalar" },
+  { num: "12", cat: "Neyroleptik vositalar", name: "Galoperidol", form: "1,5 mg; 5 mg tabletkalar; 5 mg/ml inyeksiya" },
+  { num: "13", cat: "Neyroleptik vositalar", name: "Klozapin", form: "25 mg; 100 mg tabletkalar" },
+  { num: "14", cat: "Neyroleptik vositalar", name: "Risperidon", form: "1 mg; 2 mg; 3 mg; 4 mg tabletkalar" },
+  { num: "15", cat: "Neyroleptik vositalar", name: "Kvetiapin", form: "25–300 mg tabletkalar" },
+  { num: "16", cat: "Neyroleptik vositalar", name: "Olanzapin", form: "2,5–20 mg tabletkalar" },
+  { num: "17", cat: "Trankvilizatorlar", name: "Diazepam", form: "5 mg tabletkalar; 5 mg/ml 2 ml inyeksiya uchun eritma" },
+  { num: "18", cat: "Trankvilizatorlar", name: "Alprazolam", form: "0,25 mg; 0,5 mg; 1 mg tabletkalar" },
+  { num: "19", cat: "Antidepressantlar", name: "Amitriptilin", form: "10 mg; 25 mg tabletkalar; 10 mg/2ml inyeksiya" },
+  { num: "20", cat: "Antidepressantlar", name: "Fluoksetin", form: "20 mg kapsulalar" },
+  { num: "21", cat: "Antidepressantlar", name: "Sertralin", form: "50 mg; 100 mg tabletkalar" },
+  { num: "22", cat: "Antidepressantlar", name: "Essitalopram", form: "10 mg; 20 mg tabletkalar" },
+  { num: "23", cat: "Nootroplar", name: "Piratsetam", form: "200–1200 mg tabletkalar, kapsulalar, inyeksiya, infuziya" },
+  { num: "24", cat: "Nootroplar", name: "Sitikolin", form: "500–1000 mg inyeksiya; 250 mg tabletkalar" },
+  { num: "25", cat: "Parkinsonizmga qarshi", name: "Levodopa/Karbidopa", form: "250 mg/25 mg tabletkalar" },
+  { num: "26", cat: "Narkotik analgetiklar", name: "Morfin", form: "10 mg; 30 mg; 60 mg; 100 mg tabletkalar; 10 mg/ml inyeksiya" },
+  { num: "27", cat: "Narkotik analgetiklar", name: "Fentanil", form: "50 mkg/ml 1 ml; 2 ml inyeksiya uchun eritma" },
+  { num: "28", cat: "Aralash analgetiklar", name: "Tramadol", form: "50 mg; 100 mg tabletkalar, kapsulalar, inyeksiya" },
+  { num: "29", cat: "Nonarkotik analgetiklar", name: "Metamizol natriy (Analgin)", form: "500 mg tabletkalar; 250–500 mg/ml inyeksiya" },
+  { num: "30", cat: "Nonarkotik analgetiklar", name: "Paratsetamol", form: "200–500 mg tabletkalar; suspenziya; infuziya; shamchalar" },
+  { num: "31", cat: "YANA (NSAIDs)", name: "Diklofenak", form: "25–100 mg tabletkalar; 75 mg inyeksiya; gel; ko'z tomchi" },
+  { num: "32", cat: "YANA (NSAIDs)", name: "Ibuprofen", form: "200–800 mg tabletkalar, kapsulalar, suspenziya, infuziya" },
+  { num: "33", cat: "YANA (NSAIDs)", name: "Meloksikam", form: "7,5 mg; 15 mg tabletkalar; inyeksiya; surtma" },
+  { num: "34", cat: "YANA (NSAIDs)", name: "Ketorolak", form: "7,5–10 mg tabletkalar; 30 mg/ml inyeksiya; gel; ko'z tomchi" },
+  { num: "35", cat: "Miorelaksantlar", name: "Tolperizon", form: "50 mg; 150 mg tabletkalar, kapsulalar; inyeksiya" },
+  { num: "36", cat: "Miorelaksantlar", name: "Tizanidin", form: "2 mg; 4 mg tabletkalar" },
+  { num: "37", cat: "Qusishga qarshi", name: "Metoklopramid", form: "10 mg tabletkalar; 0,5% 2 ml inyeksiya" },
+  { num: "38", cat: "Qusishga qarshi", name: "Ondansetron", form: "4 mg; 8 mg tabletkalar; 2 mg/ml inyeksiya" },
+  { num: "39", cat: "Me'da yarasi uchun", name: "Ranitidin", form: "150 mg tabletkalar; 2,5% 2 ml inyeksiya" },
+  { num: "40", cat: "Proton nasos ingibitorlari", name: "Omeprazol", form: "20 mg; 40 mg kapsulalar; 40 mg inyeksiya uchun kukun" },
+  { num: "41", cat: "Proton nasos ingibitorlari", name: "Pantoprozol", form: "20 mg; 40 mg tabletkalar; 40 mg inyeksiya uchun kukun" },
+  { num: "42", cat: "Astma va COPD uchun", name: "Salbutamol", form: "100 mkg/doza aerozol; ingalatsiya uchun eritma" },
+  { num: "43", cat: "Astma va COPD uchun", name: "Budesonid + Formoterol", form: "(80+4,5) – (400+12) mkg aerozol" },
+  { num: "44", cat: "Astma va COPD uchun", name: "Tiotropiy bromid", form: "10 mkg; 18 mkg ingalatsiya uchun kapsulalar" },
+  { num: "45", cat: "Bronxolitik vositalar", name: "Montelukast natriy", form: "10 mg tabletkalar; 4–5 mg chaynaladigan tabletkalar" },
+  { num: "46", cat: "Balgʻam koʻchiruvchi", name: "Ambroksol", form: "30 mg tabletkalar; sirop; inyeksiya; ichish uchun eritma" },
+  { num: "47", cat: "Balgʻam koʻchiruvchi", name: "Atsetilsistein", form: "600 mg vishillovchi tabletkalar; 200–600 mg granulalar" },
+  { num: "48", cat: "Yurak-qon tomir", name: "Trimetazidin", form: "20 mg; 35 mg uzaytirilgan tabletkalar; 80 mg kapsulalar" },
+  { num: "49", cat: "Antiaritmik", name: "Amiodaron", form: "200 mg tabletkalar; 50 mg/ml 3 ml inyeksiya" },
+  { num: "50", cat: "Antianginal", name: "Nitroglitserin", form: "0,5 mg sublingval tabletkalar; sprey; infuziya" },
+  { num: "51", cat: "Gipolipidemik", name: "Atorvastatin", form: "10 mg; 20 mg; 40 mg; 80 mg tabletkalar" },
+  { num: "52", cat: "Gipolipidemik", name: "Rozuvastatin", form: "5 mg; 10 mg; 20 mg; 40 mg tabletkalar" },
+  { num: "53", cat: "Antiagregantlar", name: "Klopidogrel", form: "75 mg; 300 mg tabletkalar" },
+  { num: "54", cat: "Antiagregantlar", name: "Atsetilsalitsil kislotasi (Aspirin)", form: "50–500 mg tabletkalar" },
+  { num: "55", cat: "Beta-blokatorlar", name: "Bisoprolol", form: "2,5 mg; 5,0 mg; 10,0 mg tabletkalar" },
+  { num: "56", cat: "Beta-blokatorlar", name: "Metoprolol suksinat", form: "25 mg; 50 mg; 100 mg tabletkalar" },
+  { num: "57", cat: "Beta-blokatorlar", name: "Nebivolol", form: "2,5 mg; 5,0 mg tabletkalar" },
+  { num: "58", cat: "Antigipertenziv", name: "Amlodipin", form: "2,5 mg; 5 mg; 10 mg tabletkalar" },
+  { num: "59", cat: "Antigipertenziv", name: "Nifedipin", form: "10 mg; 20 mg; 30 mg tabletkalar" },
+  { num: "60", cat: "Antigipertenziv (AXF ingibitorlar)", name: "Enalapril maleat", form: "2,5 mg; 5 mg; 10 mg tabletkalar" },
+  { num: "61", cat: "Antigipertenziv (AXF ingibitorlar)", name: "Lizinopril", form: "5 mg; 10 mg; 20 mg tabletkalar" },
+  { num: "62", cat: "Antigipertenziv (ARB)", name: "Lozartan", form: "25 mg; 50 mg; 100 mg tabletkalar" },
+  { num: "63", cat: "Antigipertenziv (ARB)", name: "Valsartan", form: "40 mg; 80 mg; 160 mg; 320 mg tabletkalar" },
+  { num: "64", cat: "Antikoagulyantlar", name: "Geparin", form: "5000–25000 XB inyeksiya; gel" },
+  { num: "65", cat: "Antikoagulyantlar", name: "Enoksaparin natriy", form: "2000–8000 anti-Xa XB inyeksiya uchun eritma" },
+  { num: "66", cat: "Antikoagulyantlar", name: "Varfarin", form: "2,5 mg tabletkalar" },
+  { num: "67", cat: "Antikoagulyantlar", name: "Rivaroksaban", form: "2,5 mg; 10 mg; 15 mg; 20 mg tabletkalar" },
+  { num: "68", cat: "Diuretiklar", name: "Furosemid", form: "40 mg tabletkalar; 1% 2 ml inyeksiya" },
+  { num: "69", cat: "Diuretiklar", name: "Torasemid", form: "2,5–20 mg tabletkalar; inyeksiya" },
+  { num: "70", cat: "Diuretiklar", name: "Spironolakton", form: "25 mg; 50 mg; 100 mg tabletkalar, kapsulalar" },
+  { num: "71", cat: "Allergiyaga qarshi", name: "Setirizin", form: "10 mg tabletkalar; tomchilar; sirop" },
+  { num: "72", cat: "Allergiyaga qarshi", name: "Levotsetirizin", form: "5 mg tabletkalar; tomchilar; sirop" },
+  { num: "73", cat: "Allergiyaga qarshi", name: "Dezloratadin", form: "5 mg; 10 mg tabletkalar; eritma; sirop" },
+  { num: "74", cat: "Mahalliy anesteziya", name: "Lidokain", form: "0,5–10% eritma; plastir; ko'z tomchi; aerozol" },
+  { num: "75", cat: "Gormonlar (kortikosteroidlar)", name: "Prednizolon", form: "5 mg tabletkalar; 30 mg/ml inyeksiya; surtma" },
+  { num: "76", cat: "Gormonlar (kortikosteroidlar)", name: "Deksametazon", form: "0,4–0,5% 1–2 ml inyeksiya; 0,5 mg tabletkalar; ko'z tomchi" },
+  { num: "77", cat: "Gormonlar (kortikosteroidlar)", name: "Metilprednizolon", form: "4 mg; 16 mg tabletkalar; 250–1000 mg inyeksiya" },
+  { num: "78", cat: "Gormonlar (kortikosteroidlar)", name: "Beklometazon", form: "50–250 mkg/doza aerozol; nazal sprey" },
+  { num: "79", cat: "Gormonlar (kortikosteroidlar)", name: "Flutikazon propionat", form: "50–250 mkg/doza aerozol; nazal sprey" },
+  { num: "80", cat: "Qalqonsimon bez gormonlari", name: "Levotiroksin natriy", form: "25–100 mkg tabletkalar" },
+  { num: "81", cat: "Diabet vositalari", name: "Metformin", form: "500 mg; 850 mg; 1000 mg tabletkalar" },
+  { num: "82", cat: "Diabet vositalari", name: "Gliklazid", form: "30 mg; 60 mg tabletkalar" },
+  { num: "83", cat: "Diabet vositalari", name: "Glimepirid", form: "1 mg; 2 mg; 3 mg; 4 mg tabletkalar" },
+  { num: "84", cat: "Diabet vositalari", name: "Dapagliflozin", form: "5 mg; 10 mg tabletkalar" },
+  { num: "85", cat: "Insulinlar", name: "Qisqa ta'sirli insulin", form: "100 TB/ml 10 ml flakon; 3 ml kartridj" },
+  { num: "86", cat: "Insulinlar", name: "Uzoq ta'sirli insulin", form: "100 TB/ml 10 ml flakon; 3 ml kartridj" },
+  { num: "87", cat: "Vitaminlar", name: "Askorbin kislotasi (C vitamini)", form: "2,5–5% inyeksiya; tabletkalar; kukun" },
+  { num: "88", cat: "Vitaminlar", name: "Tiamin xlorid (B1 vitamini)", form: "2,5%; 5% 1 ml inyeksiya" },
+  { num: "89", cat: "Vitaminlar", name: "Piridoksin gidroxlorid (B6 vitamini)", form: "2,5%; 5% 1 ml inyeksiya" },
+  { num: "90", cat: "Vitaminlar", name: "Folat kislotasi (B9 vitamini)", form: "1 mg; 5 mg tabletkalar" },
+  { num: "91", cat: "Antibiotiklar (Penitsillin)", name: "Amoksitsillin", form: "250–500 mg kapsulalar, tabletkalar; suspenziya" },
+  { num: "92", cat: "Antibiotiklar (Penitsillin)", name: "Amoksitsillin/Klavulanat", form: "250–875 mg tabletkalar; suspenziya; venaga inyeksiya" },
+  { num: "93", cat: "Antibiotiklar (Tsefalosporin)", name: "Seftriakson", form: "0,5 g; 1,0 g inyeksiya uchun kukun" },
+  { num: "94", cat: "Antibiotiklar (Tsefalosporin)", name: "Sefazolin", form: "0,5 g; 1,0 g inyeksiya uchun kukun" },
+  { num: "95", cat: "Antibiotiklar (Tsefalosporin)", name: "Sefepim", form: "0,5 g; 1 g; 2 g inyeksiya uchun kukun" },
+  { num: "96", cat: "Antibiotiklar (Karbapenem)", name: "Meropenem", form: "500 mg; 1000 mg inyeksiya uchun kukun" },
+  { num: "97", cat: "Antibiotiklar (Makrolid)", name: "Azitromitsin", form: "250–500 mg tabletkalar, kapsulalar; suspenziya; infuziya" },
+  { num: "98", cat: "Antibiotiklar (Makrolid)", name: "Klaritromitsin", form: "250–500 mg tabletkalar; suspenziya" },
+  { num: "99", cat: "Antibiotiklar (Ftorxinolon)", name: "Siprofloksatsin", form: "250–750 mg tabletkalar; 2 mg/ml infuziya; ko'z tomchi" },
+  { num: "100", cat: "Antibiotiklar (Ftorxinolon)", name: "Levofloksatsin", form: "250–500 mg tabletkalar; 5 mg/ml infuziya" },
+  { num: "101", cat: "Antibiotiklar (Ftorxinolon)", name: "Moksifloksatsin", form: "400 mg tabletkalar; ko'z tomchi; 400 mg/100 ml infuziya" },
+  { num: "102", cat: "Sil uchun", name: "Rifampitsin", form: "150–300 mg kapsulalar; infuziya uchun kukun" },
+  { num: "103", cat: "Sil uchun", name: "Izoniazid", form: "100–300 mg tabletkalar; sirop" },
+  { num: "104", cat: "Sil uchun", name: "Pirazinamid", form: "500 mg tabletkalar" },
+  { num: "105", cat: "Sil uchun", name: "Etambutol", form: "400 mg tabletkalar; infuziya uchun konsentrat" },
+  { num: "106", cat: "Virusga qarshi", name: "Asiklovir", form: "200–400 mg tabletkalar; infuziya; krem; surtma" },
+  { num: "107", cat: "Virusga qarshi", name: "Valatsiklovir", form: "300 mg; 500 mg; 1000 mg tabletkalar" },
+  { num: "108", cat: "Virusga qarshi (OITS)", name: "Dolutegravir + Lamivudin + Tenofovir", form: "50+300+300 mg tabletkalar" },
+  { num: "109", cat: "Virusga qarshi (Gepatit)", name: "Sofosbuvir", form: "400 mg tabletkalar" },
+  { num: "110", cat: "Virusga qarshi (Gepatit)", name: "Entekavir", form: "0,5 mg; 1,0 mg tabletkalar" },
+  { num: "111", cat: "Zamburug'ga qarshi", name: "Flukonazol", form: "50–200 mg kapsulalar, tabletkalar; infuziya; sirop" },
+  { num: "112", cat: "Zamburug'ga qarshi", name: "Itrakonazol", form: "100 mg tabletkalar, kapsulalar" },
+  { num: "113", cat: "Parazitga qarshi", name: "Metronidazol", form: "200–500 mg tabletkalar; infuziya; vaginal shamcha; gel" },
+  { num: "114", cat: "Parazitga qarshi", name: "Albendazol", form: "200–400 mg tabletkalar; suspenziya" },
+  { num: "115", cat: "O'smaga qarshi", name: "Sisplatin", form: "1 mg/ml 10–100 ml inyeksiya uchun konsentrat" },
+  { num: "116", cat: "O'smaga qarshi", name: "Paklitaksel", form: "6 mg/ml; 30–300 mg infuziya uchun konsentrat" },
+  { num: "117", cat: "O'smaga qarshi", name: "Doksorubitsin", form: "2 mg/ml 5–100 ml infuziya; 10–50 mg kukun" },
+  { num: "118", cat: "O'smaga qarshi", name: "Rituksimab", form: "100–500 mg/ml infuziya uchun konsentrat" },
+  { num: "119", cat: "O'smaga qarshi", name: "Trastuzumab", form: "100–440 mg infuziya uchun kukun; 600 mg/5 ml teri ostiga" },
+  { num: "120", cat: "Tashxis vositalari", name: "Yogeksol", form: "300–350 mg yod/ml 20–200 ml inyeksiya" },
+  { num: "121", cat: "Gepatoprotektorlar", name: "Ursodezoksixolat kislotasi", form: "250–500 mg kapsulalar, tabletkalar; suspenziya" },
+  { num: "122", cat: "Gepatoprotektorlar", name: "Ademetionin", form: "400 mg tabletkalar; inyeksiya uchun kukun" },
+  { num: "123", cat: "Podagraga qarshi", name: "Allopurinol", form: "100 mg; 150 mg; 200 mg; 300 mg tabletkalar" },
+  { num: "124", cat: "Antiseptiklar", name: "Vodorod peroksid", form: "3% eritma 25–100 ml" },
+  { num: "125", cat: "Antiseptiklar", name: "Xlorgeksidin", form: "0,05–0,5% eritma; gel; vaginal shamcha; sprey" },
+  { num: "126", cat: "Vaksinalar", name: "Ko'kyutal, Difteriya, Qoqshol (AKDS)", form: "1 doza; 10 doza inyeksiya" },
+  { num: "127", cat: "Vaksinalar", name: "Gepatit B vaksinasi", form: "1 doza; 10 doza inyeksiya" },
+  { num: "128", cat: "Vaksinalar", name: "Qizamiq, parotit va qizilcha vaksinasi", form: "1 doza; 10 doza" },
+  { num: "129", cat: "Vaksinalar", name: "Pnevmokokk vaksinasi", form: "0,5 ml 1 doza; 2,5 ml 5 doza" },
+  { num: "130", cat: "Tuz eritmalari", name: "Natriy xlorid 0,9%", form: "100–1000 ml infuziya uchun eritma" },
+];
+
+let currentTab = 'mkb';
+let filteredMkb = [...MKB_DATA];
+let filteredDrug = [...DRUG_DATA];
+
+document.getElementById('mkbCount').textContent = MKB_DATA.length + '+';
+document.getElementById('drugCount').textContent = DRUG_DATA.length + '+';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (tab === 'mkb') {
+    document.getElementById('mkbSection').style.display = '';
+    document.getElementById('drugSection').style.display = 'none';
+  } else {
+    document.getElementById('mkbSection').style.display = 'none';
+    document.getElementById('drugSection').style.display = '';
+  }
+
+  document.getElementById('searchInput').value = '';
+  renderMkb(MKB_DATA);
+  renderDrug(DRUG_DATA);
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (currentTab === 'mkb') {
+    const res = q ? MKB_DATA.filter(d =>
+      d.code.toLowerCase().includes(q) ||
+      d.name.toLowerCase().includes(q) ||
+      d.ru.toLowerCase().includes(q)
+    ) : MKB_DATA;
+    renderMkb(res);
+  } else {
+    const res = q ? DRUG_DATA.filter(d =>
+      d.name.toLowerCase().includes(q) ||
+      d.cat.toLowerCase().includes(q) ||
+      d.form.toLowerCase().includes(q)
+    ) : DRUG_DATA;
+    renderDrug(res);
+  }
+}
+
+function renderMkb(data) {
+  const grid = document.getElementById('mkbGrid');
+  const info = document.getElementById('mkbCountInfo');
+  info.innerHTML = `<strong>${data.length}</strong> ta yozuv topildi`;
+
+  if (!data.length) {
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Hech narsa topilmadi</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = data.map(d => {
+    const isClass = d.type === 'class';
+    const isGroup = d.type === 'group';
+    const codeClass = (isClass || isGroup) ? 'mkb-code category' : 'mkb-code';
+    return `
+    <div class="mkb-card">
+      <div class="${codeClass}">${d.code}</div>
+      <div class="mkb-info">
+        <div class="mkb-name-uz">${d.name}</div>
+        <div class="mkb-name-ru">${d.ru}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderDrug(data) {
+  const grid = document.getElementById('drugGrid');
+  const info = document.getElementById('drugCountInfo');
+  info.innerHTML = `<strong>${data.length}</strong> ta dori topildi`;
+
+  if (!data.length) {
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Hech narsa topilmadi</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = data.map(d => `
+    <div class="drug-card">
+      <div class="drug-num">#${d.num}</div>
+      <div class="drug-info">
+        <div class="drug-category">${d.cat}</div>
+        <div class="drug-name">${d.name}</div>
+        <div class="drug-form">${d.form}</div>
+      </div>
+    </div>`
+  ).join('');
+}
+
+// Initial render
+renderMkb(MKB_DATA);
+renderDrug(DRUG_DATA);
+</script>
+
+</body>
+</html>
