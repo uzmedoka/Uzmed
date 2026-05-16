@@ -1,460 +1,819 @@
 <!DOCTYPE html>
-
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UzMed — Tibbiy Ma'lumotnoma</title>
+<title>UzMed — Klinika Boshqaruv Tizimi</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0a1628;
-    --blue: #1a3a6b;
-    --accent: #c8a94e;
-    --accent-light: #e8cc7a;
-    --white: #f8f6f0;
-    --gray: #8a9ab5;
-    --light-bg: #eef1f7;
-    --card-bg: #ffffff;
-    --border: #d0d8e8;
-    --red: #c0392b;
-    --green: #1a7a4a;
-  }
+:root {
+  --navy: #0a1628;
+  --blue: #1a3a6b;
+  --accent: #c8a94e;
+  --accent-light: #e8cc7a;
+  --white: #f8f6f0;
+  --gray: #8a9ab5;
+  --light-bg: #eef1f7;
+  --card-bg: #ffffff;
+  --border: #d0d8e8;
+  --red: #c0392b;
+  --green: #1a7a4a;
+  --green-light: #e8f5ee;
+  --red-light: #fdecea;
+  --amber: #d4870a;
+  --amber-light: #fff8e1;
+  --purple: #6c3483;
+  --purple-light: #f3e8ff;
+}
 
-- { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-font-family: ‘IBM Plex Sans’, sans-serif;
-background: var(–light-bg);
-color: var(–navy);
-min-height: 100vh;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--light-bg);
+  color: var(--navy);
+  min-height: 100vh;
 }
 
 /* HEADER */
 header {
-background: var(–navy);
-padding: 0 24px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: 64px;
-position: sticky;
-top: 0;
-z-index: 100;
-border-bottom: 2px solid var(–accent);
+  background: var(--navy);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid var(--accent);
 }
 
 .logo {
-font-family: ‘Playfair Display’, serif;
-font-size: 26px;
-color: var(–white);
-letter-spacing: 1px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: var(--white);
+  letter-spacing: 1px;
 }
+.logo span { color: var(--accent); }
 
-.logo span { color: var(–accent); }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
 .header-badge {
-font-size: 11px;
-color: var(–gray);
-font-family: ‘IBM Plex Mono’, monospace;
-letter-spacing: 1px;
+  font-size: 11px;
+  color: var(--gray);
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 1px;
 }
+
+.header-time {
+  font-size: 12px;
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* NAV */
+nav {
+  background: var(--blue);
+  display: flex;
+  overflow-x: auto;
+  padding: 0 16px;
+  gap: 2px;
+}
+
+nav button {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.65);
+  padding: 14px 20px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+nav button:hover { color: #fff; background: rgba(255,255,255,0.07); }
+nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 
 /* HERO */
 .hero {
-background: linear-gradient(135deg, var(–navy) 0%, var(–blue) 100%);
-padding: 48px 24px 40px;
-text-align: center;
-position: relative;
-overflow: hidden;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  padding: 36px 24px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-
 .hero::before {
-content: ‘’;
-position: absolute;
-top: -50px; right: -50px;
-width: 300px; height: 300px;
-border: 1px solid rgba(200,169,78,0.15);
-border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 300px; height: 300px;
+  border: 1px solid rgba(200,169,78,0.15);
+  border-radius: 50%;
 }
-
-.hero::after {
-content: ‘’;
-position: absolute;
-bottom: -80px; left: -80px;
-width: 400px; height: 400px;
-border: 1px solid rgba(200,169,78,0.10);
-border-radius: 50%;
-}
-
 .hero h1 {
-font-family: ‘Playfair Display’, serif;
-font-size: clamp(24px, 5vw, 42px);
-color: var(–white);
-margin-bottom: 10px;
-position: relative;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 36px);
+  color: var(--white);
+  margin-bottom: 6px;
+  position: relative;
 }
-
 .hero p {
-color: var(–gray);
-font-size: 14px;
-margin-bottom: 28px;
-font-weight: 300;
+  color: var(--gray);
+  font-size: 13px;
+  font-weight: 300;
+  margin-bottom: 20px;
 }
-
-.tab-bar {
-display: flex;
-justify-content: center;
-gap: 8px;
-margin-bottom: 24px;
-flex-wrap: wrap;
-}
-
-.tab {
-padding: 10px 22px;
-border-radius: 30px;
-border: 1px solid rgba(255,255,255,0.2);
-background: transparent;
-color: var(–gray);
-cursor: pointer;
-font-family: ‘IBM Plex Sans’, sans-serif;
-font-size: 14px;
-font-weight: 500;
-transition: all 0.25s;
-}
-
-.tab.active {
-background: var(–accent);
-border-color: var(–accent);
-color: var(–navy);
-font-weight: 600;
-}
-
 .search-box {
-max-width: 560px;
-margin: 0 auto;
-position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
 }
-
 .search-box input {
-width: 100%;
-padding: 14px 50px 14px 18px;
-border-radius: 8px;
-border: 2px solid transparent;
-font-family: ‘IBM Plex Sans’, sans-serif;
-font-size: 15px;
-background: rgba(255,255,255,0.95);
-color: var(–navy);
-outline: none;
-transition: border-color 0.2s;
+  width: 100%;
+  padding: 13px 48px 13px 18px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  background: rgba(255,255,255,0.95);
+  color: var(--navy);
+  outline: none;
+  transition: border-color 0.2s;
 }
-
-.search-box input:focus { border-color: var(–accent); }
+.search-box input:focus { border-color: var(--accent); }
 .search-box input::placeholder { color: #9aabcc; }
-
 .search-icon {
-position: absolute;
-right: 16px;
-top: 50%;
-transform: translateY(-50%);
-font-size: 18px;
-color: var(–accent);
-pointer-events: none;
+  position: absolute;
+  right: 16px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--accent);
+  pointer-events: none;
 }
 
 /* STATS BAR */
 .stats-bar {
-background: var(–card-bg);
-border-bottom: 1px solid var(–border);
-display: flex;
-justify-content: center;
-gap: 0;
-padding: 0;
-overflow-x: auto;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
 }
-
 .stat-item {
-padding: 14px 28px;
-border-right: 1px solid var(–border);
-text-align: center;
-flex-shrink: 0;
+  padding: 14px 28px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-
 .stat-item:last-child { border-right: none; }
-
+.stat-item:hover { background: var(--light-bg); }
 .stat-num {
-font-family: ‘Playfair Display’, serif;
-font-size: 22px;
-color: var(–blue);
-font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--blue);
+  font-weight: 700;
 }
-
+.stat-num.green { color: var(--green); }
+.stat-num.red { color: var(--red); }
+.stat-num.amber { color: var(--amber); }
 .stat-label {
-font-size: 11px;
-color: var(–gray);
-text-transform: uppercase;
-letter-spacing: 0.8px;
-margin-top: 2px;
+  font-size: 11px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
 }
 
 /* MAIN */
 main {
-max-width: 900px;
-margin: 0 auto;
-padding: 28px 16px 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 16px 60px;
 }
+
+.page { display: none; }
+.page.active { display: block; }
 
 .section-title {
-font-family: ‘Playfair Display’, serif;
-font-size: 20px;
-color: var(–blue);
-margin-bottom: 16px;
-padding-bottom: 8px;
-border-bottom: 2px solid var(–accent);
-display: inline-block;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--blue);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
 }
+
+.count-info {
+  font-size: 13px;
+  color: var(--gray);
+  margin-bottom: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.count-info strong { color: var(--blue); }
+
+/* GRID LIST */
+.item-grid { display: flex; flex-direction: column; gap: 10px; }
 
 /* MKB CARDS */
-.mkb-grid { display: flex; flex-direction: column; gap: 10px; }
-
 .mkb-card {
-background: var(–card-bg);
-border: 1px solid var(–border);
-border-radius: 10px;
-padding: 16px 20px;
-display: flex;
-align-items: flex-start;
-gap: 16px;
-transition: all 0.2s;
-animation: fadeIn 0.3s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s;
+  animation: fadeIn 0.3s ease;
 }
-
 .mkb-card:hover {
-border-color: var(–accent);
-box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-transform: translateY(-1px);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
-
 .mkb-code {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 13px;
-font-weight: 500;
-color: var(–white);
-background: var(–blue);
-padding: 5px 10px;
-border-radius: 6px;
-white-space: nowrap;
-flex-shrink: 0;
-min-width: 70px;
-text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--blue);
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 70px;
+  text-align: center;
 }
-
-.mkb-code.category { background: var(–navy); font-size: 11px; }
-
+.mkb-code.category { background: var(--navy); font-size: 11px; }
 .mkb-info { flex: 1; }
-
 .mkb-name-uz {
-font-size: 15px;
-font-weight: 500;
-color: var(–navy);
-margin-bottom: 4px;
-line-height: 1.4;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 4px;
+  line-height: 1.4;
 }
-
 .mkb-name-ru {
-font-size: 13px;
-color: var(–gray);
-font-style: italic;
+  font-size: 13px;
+  color: var(--gray);
+  font-style: italic;
 }
 
 /* DRUG CARDS */
-.drug-grid { display: flex; flex-direction: column; gap: 10px; }
-
 .drug-card {
-background: var(–card-bg);
-border: 1px solid var(–border);
-border-radius: 10px;
-padding: 16px 20px;
-display: flex;
-align-items: flex-start;
-gap: 16px;
-transition: all 0.2s;
-animation: fadeIn 0.3s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s;
+  animation: fadeIn 0.3s ease;
 }
-
 .drug-card:hover {
-border-color: var(–green);
-box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-transform: translateY(-1px);
+  border-color: var(--green);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
-
 .drug-num {
-font-family: ‘IBM Plex Mono’, monospace;
-font-size: 12px;
-color: var(–white);
-background: var(–green);
-padding: 5px 10px;
-border-radius: 6px;
-white-space: nowrap;
-flex-shrink: 0;
-min-width: 44px;
-text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--white);
+  background: var(--green);
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 44px;
+  text-align: center;
 }
-
 .drug-info { flex: 1; }
-
 .drug-name {
-font-size: 15px;
-font-weight: 600;
-color: var(–navy);
-margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 5px;
 }
-
 .drug-form {
-font-size: 12px;
-color: var(–gray);
-line-height: 1.5;
-font-family: ‘IBM Plex Mono’, monospace;
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.5;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.drug-category {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
 }
 
-.drug-category {
-font-size: 11px;
-color: var(–accent);
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-margin-bottom: 4px;
+/* PATIENT / DOCTOR CARDS */
+.person-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s;
+  animation: fadeIn 0.3s ease;
 }
+.person-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+.avatar {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #fff;
+}
+.avatar.blue { background: var(--blue); }
+.avatar.green { background: var(--green); }
+.avatar.purple { background: var(--purple); }
+.avatar.amber { background: var(--amber); }
+.avatar.red { background: var(--red); }
+
+.person-info { flex: 1; }
+.person-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 3px;
+}
+.person-sub {
+  font-size: 13px;
+  color: var(--gray);
+}
+.person-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+.badge.green { background: var(--green-light); color: var(--green); }
+.badge.red { background: var(--red-light); color: var(--red); }
+.badge.amber { background: var(--amber-light); color: var(--amber); }
+.badge.blue { background: #e8eef8; color: var(--blue); }
+.badge.purple { background: var(--purple-light); color: var(--purple); }
+
+/* APPOINTMENT CARDS */
+.appt-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  transition: all 0.2s;
+  animation: fadeIn 0.3s ease;
+}
+.appt-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+.appt-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue);
+  text-align: center;
+  border-right: 1px solid var(--border);
+  padding-right: 16px;
+}
+.appt-time .date { font-size: 11px; color: var(--gray); margin-top: 2px; }
+.appt-info .patient { font-size: 15px; font-weight: 600; color: var(--navy); }
+.appt-info .doctor { font-size: 13px; color: var(--gray); margin-top: 2px; }
+.appt-info .reason { font-size: 12px; color: var(--blue); margin-top: 4px; font-style: italic; }
+
+/* DASHBOARD */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.dash-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  border-left: 4px solid var(--accent);
+}
+.dash-card.blue-l { border-left-color: var(--blue); }
+.dash-card.green-l { border-left-color: var(--green); }
+.dash-card.red-l { border-left-color: var(--red); }
+.dash-card.purple-l { border-left-color: var(--purple); }
+.dash-card.amber-l { border-left-color: var(--amber); }
+.dash-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.dash-label { font-size: 13px; color: var(--gray); margin-top: 4px; }
+.dash-trend { font-size: 12px; margin-top: 8px; }
+.dash-trend.up { color: var(--green); }
+.dash-trend.down { color: var(--red); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:640px){ .two-col { grid-template-columns: 1fr; } }
+
+.mini-list { display: flex; flex-direction: column; gap: 8px; }
+.mini-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--light-bg);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.mini-row .lbl { color: var(--navy); font-weight: 500; }
+.mini-row .val { color: var(--blue); font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+
+/* FILTER ROW */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--gray);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* DEPT TABLE */
+.dept-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.dept-table th {
+  background: var(--navy);
+  color: var(--gray);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+.dept-table td {
+  padding: 13px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--navy);
+}
+.dept-table tr:last-child td { border-bottom: none; }
+.dept-table tr:hover td { background: var(--light-bg); }
+.dept-table td.mono { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--blue); }
 
 /* EMPTY STATE */
 .empty {
-text-align: center;
-padding: 60px 20px;
-color: var(–gray);
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray);
 }
-
 .empty-icon { font-size: 48px; margin-bottom: 12px; }
 .empty-text { font-size: 15px; }
 
-/* COUNT INFO */
-.count-info {
-font-size: 13px;
-color: var(–gray);
-margin-bottom: 14px;
-font-family: ‘IBM Plex Mono’, monospace;
-}
-
-.count-info strong { color: var(–blue); }
-
 /* ANIMATIONS */
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(6px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* FOOTER */
 footer {
-background: var(–navy);
-color: var(–gray);
-text-align: center;
-padding: 20px;
-font-size: 12px;
-letter-spacing: 0.5px;
+  background: var(--navy);
+  color: var(--gray);
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
-
-footer span { color: var(–accent); }
+footer span { color: var(--accent); }
 </style>
-
 </head>
 <body>
 
 <header>
   <div class="logo">Uz<span>Med</span></div>
-  <div class="header-badge">TIBBIY MA'LUMOTNOMA</div>
+  <div class="header-right">
+    <div class="header-time" id="clockEl"></div>
+    <div class="header-badge">KLINIKA BOSHQARUV TIZIMI</div>
+  </div>
 </header>
 
+<nav>
+  <button class="active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+  <button onclick="showPage('patients',this)">🧑‍⚕️ Bemorlar</button>
+  <button onclick="showPage('doctors',this)">👨‍⚕️ Shifokorlar</button>
+  <button onclick="showPage('appointments',this)">📅 Qabullar</button>
+  <button onclick="showPage('departments',this)">🏥 Bo'limlar</button>
+  <button onclick="showPage('mkb',this)">🩺 MKB-10</button>
+  <button onclick="showPage('drugs',this)">💊 Dorilar</button>
+</nav>
+
 <div class="hero">
-  <h1>O'zbekiston Tibbiy Ma'lumotlar Bazasi</h1>
-  <p>MKB-10 kasalliklar tasnifi • Asosiy dori vositalari ro'yxati 2023</p>
-  <div class="tab-bar">
-    <button class="tab active" onclick="switchTab('mkb')">🩺 MKB-10 Kodlar</button>
-    <button class="tab" onclick="switchTab('drug')">💊 Dori Vositalar</button>
-  </div>
+  <h1>O'zbekiston Tibbiy Klinika Tizimi</h1>
+  <p>Bemorlar • Shifokorlar • Qabullar • MKB-10 • Dori vositalar ro'yxati 2023</p>
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Qidiring: kasallik nomi, kod, yoki dori nomi..." oninput="doSearch()">
+    <input type="text" id="searchInput" placeholder="Qidiring: bemor, shifokor, kasallik, dori..." oninput="doSearch()">
     <div class="search-icon">⌕</div>
   </div>
 </div>
 
 <div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-num" id="mkbCount">–</div>
-    <div class="stat-label">MKB-10 Yozuvlar</div>
+  <div class="stat-item" onclick="showPage('patients',document.querySelector('nav button:nth-child(2)'))">
+    <div class="stat-num green" id="statPatients">248</div>
+    <div class="stat-label">Bemorlar</div>
+  </div>
+  <div class="stat-item" onclick="showPage('doctors',document.querySelector('nav button:nth-child(3)'))">
+    <div class="stat-num blue" id="statDoctors">34</div>
+    <div class="stat-label">Shifokorlar</div>
+  </div>
+  <div class="stat-item" onclick="showPage('appointments',document.querySelector('nav button:nth-child(4)'))">
+    <div class="stat-num amber" id="statAppts">17</div>
+    <div class="stat-label">Bugungi Qabullar</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" id="drugCount">–</div>
+    <div class="stat-num" id="mkbCount">167+</div>
+    <div class="stat-label">MKB-10 Kodlar</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="drugCount">130+</div>
     <div class="stat-label">Dori Vositalar</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">2023</div>
-    <div class="stat-label">Ma'lumot Yili</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">№34</div>
-    <div class="stat-label">Buyruq Raqami</div>
   </div>
 </div>
 
 <main>
-  <div id="mkbSection">
-    <div class="section-title">MKB-10 Kasalliklar Tasnifi</div>
-    <div class="count-info" id="mkbCountInfo"></div>
-    <div class="mkb-grid" id="mkbGrid"></div>
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <div class="section-title">Bugungi Holat</div>
+  <div class="dash-grid">
+    <div class="dash-card green-l">
+      <div class="dash-num">248</div>
+      <div class="dash-label">Jami bemorlar</div>
+      <div class="dash-trend up">↑ 12 bu hafta</div>
+    </div>
+    <div class="dash-card blue-l">
+      <div class="dash-num">17</div>
+      <div class="dash-label">Bugungi qabullar</div>
+      <div class="dash-trend up">↑ 3 ta yangi</div>
+    </div>
+    <div class="dash-card amber-l">
+      <div class="dash-num">5</div>
+      <div class="dash-label">Kutayotgan bemorlar</div>
+      <div class="dash-trend">Hozir kutmoqda</div>
+    </div>
+    <div class="dash-card purple-l">
+      <div class="dash-num">34</div>
+      <div class="dash-label">Faol shifokorlar</div>
+      <div class="dash-trend up">↑ 2 ta navbatchilik</div>
+    </div>
+    <div class="dash-card red-l">
+      <div class="dash-num">3</div>
+      <div class="dash-label">Shoshilinch holatlar</div>
+      <div class="dash-trend down">↓ Diqqat talab qiladi</div>
+    </div>
   </div>
 
-  <div id="drugSection" style="display:none;">
-    <div class="section-title">Asosiy Dori Vositalari Ro'yxati 2023</div>
-    <div class="count-info" id="drugCountInfo"></div>
-    <div class="drug-grid" id="drugGrid"></div>
+  <div class="two-col">
+    <div>
+      <div class="section-title" style="font-size:16px;">So'nggi Qabullar</div>
+      <div class="mini-list">
+        <div class="mini-row"><span class="lbl">Azimov Sardor</span><span class="val">09:00 · Dr. Karimov</span></div>
+        <div class="mini-row"><span class="lbl">Yusupova Nilufar</span><span class="val">09:30 · Dr. Rashidova</span></div>
+        <div class="mini-row"><span class="lbl">Toshmatov Bobur</span><span class="val">10:00 · Dr. Hasanov</span></div>
+        <div class="mini-row"><span class="lbl">Ergasheva Maftuna</span><span class="val">10:30 · Dr. Mirzayev</span></div>
+        <div class="mini-row"><span class="lbl">Rahimov Jasur</span><span class="val">11:00 · Dr. Karimov</span></div>
+        <div class="mini-row"><span class="lbl">Sodiqova Zulfiya</span><span class="val">11:30 · Dr. Nazarova</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-title" style="font-size:16px;">Bo'limlar yuklanishi</div>
+      <div class="mini-list">
+        <div class="mini-row"><span class="lbl">Kardiologiya</span><span class="val">42 bemor / 8 shifokor</span></div>
+        <div class="mini-row"><span class="lbl">Nevrologiya</span><span class="val">38 bemor / 6 shifokor</span></div>
+        <div class="mini-row"><span class="lbl">Terapiya</span><span class="val">55 bemor / 10 shifokor</span></div>
+        <div class="mini-row"><span class="lbl">Jarrohlik</span><span class="val">31 bemor / 5 shifokor</span></div>
+        <div class="mini-row"><span class="lbl">Pediatriya</span><span class="val">47 bemor / 7 shifokor</span></div>
+        <div class="mini-row"><span class="lbl">Ginekologiya</span><span class="val">35 bemor / 4 shifokor</span></div>
+      </div>
+    </div>
   </div>
+</div>
+
+<!-- PATIENTS -->
+<div class="page" id="page-patients">
+  <div class="section-title">Bemorlar Ro'yxati</div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterPatients('all',this)">Barchasi</button>
+    <button class="filter-btn" onclick="filterPatients('active',this)">Faol</button>
+    <button class="filter-btn" onclick="filterPatients('discharged',this)">Chiqarilgan</button>
+    <button class="filter-btn" onclick="filterPatients('urgent',this)">Shoshilinch</button>
+  </div>
+  <div class="count-info" id="patCountInfo"></div>
+  <div class="item-grid" id="patGrid"></div>
+</div>
+
+<!-- DOCTORS -->
+<div class="page" id="page-doctors">
+  <div class="section-title">Shifokorlar Ro'yxati</div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterDoctors('all',this)">Barchasi</button>
+    <button class="filter-btn" onclick="filterDoctors('Kardiologiya',this)">Kardiologiya</button>
+    <button class="filter-btn" onclick="filterDoctors('Nevrologiya',this)">Nevrologiya</button>
+    <button class="filter-btn" onclick="filterDoctors('Terapiya',this)">Terapiya</button>
+    <button class="filter-btn" onclick="filterDoctors('Jarrohlik',this)">Jarrohlik</button>
+  </div>
+  <div class="count-info" id="docCountInfo"></div>
+  <div class="item-grid" id="docGrid"></div>
+</div>
+
+<!-- APPOINTMENTS -->
+<div class="page" id="page-appointments">
+  <div class="section-title">Qabullar Jadvali</div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterAppts('all',this)">Barchasi</button>
+    <button class="filter-btn" onclick="filterAppts('Kutmoqda',this)">Kutmoqda</button>
+    <button class="filter-btn" onclick="filterAppts('Tugallangan',this)">Tugallangan</button>
+    <button class="filter-btn" onclick="filterAppts('Bekor qilindi',this)">Bekor qilindi</button>
+  </div>
+  <div class="count-info" id="apptCountInfo"></div>
+  <div class="item-grid" id="apptGrid"></div>
+</div>
+
+<!-- DEPARTMENTS -->
+<div class="page" id="page-departments">
+  <div class="section-title">Klinika Bo'limlari</div>
+  <table class="dept-table" style="margin-top:4px;">
+    <thead>
+      <tr>
+        <th>Bo'lim nomi</th>
+        <th>Mudiri</th>
+        <th>Shifokorlar</th>
+        <th>Bemorlar</th>
+        <th>Xonalar</th>
+        <th>Holat</th>
+      </tr>
+    </thead>
+    <tbody id="deptBody"></tbody>
+  </table>
+</div>
+
+<!-- MKB-10 -->
+<div class="page" id="page-mkb">
+  <div class="section-title">MKB-10 Kasalliklar Tasnifi</div>
+  <div class="count-info" id="mkbCountInfo"></div>
+  <div class="item-grid" id="mkbGrid"></div>
+</div>
+
+<!-- DRUGS -->
+<div class="page" id="page-drugs">
+  <div class="section-title">Asosiy Dori Vositalari Ro'yxati 2023</div>
+  <div class="count-info" id="drugCountInfo"></div>
+  <div class="item-grid" id="drugGrid"></div>
+</div>
+
 </main>
 
 <footer>
-  UzMed &mdash; <span>O'zbekiston Sog'liqni Saqlash Vazirligi</span> ma'lumotlari asosida | 2023
+  UzMed &mdash; <span>O'zbekiston Sog'liqni Saqlash Vazirligi</span> ma'lumotlari asosida | 2023 &nbsp;|&nbsp; Buyruq №34
 </footer>
 
 <script>
-// ── MKB-10 DATA ──
+// ─── DATA ───────────────────────────────────────────
+
+const PATIENTS = [
+  { id:"P001", name:"Azimov Sardor Baxtiyorovich", age:42, gender:"Erkak", dept:"Kardiologiya", diag:"I21 — Miokard infarkti", status:"active", phone:"+998901234567", admit:"2026-05-10" },
+  { id:"P002", name:"Yusupova Nilufar Ismoilovna", age:31, gender:"Ayol", dept:"Ginekologiya", diag:"O14 — Preeklampsiya", status:"active", phone:"+998901234568", admit:"2026-05-12" },
+  { id:"P003", name:"Toshmatov Bobur Akmalovich", age:58, gender:"Erkak", dept:"Nevrologiya", diag:"I63 — Miyacha infarkti", status:"urgent", phone:"+998901234569", admit:"2026-05-14" },
+  { id:"P004", name:"Ergasheva Maftuna Salimovna", age:24, gender:"Ayol", dept:"Terapiya", diag:"J45 — Bronxial astma", status:"active", phone:"+998901234570", admit:"2026-05-11" },
+  { id:"P005", name:"Rahimov Jasur Nematovich", age:67, gender:"Erkak", dept:"Kardiologiya", diag:"I50 — Yurak yetishmovchiligi", status:"active", phone:"+998901234571", admit:"2026-05-09" },
+  { id:"P006", name:"Sodiqova Zulfiya Hamidovna", age:35, gender:"Ayol", dept:"Terapiya", diag:"E11 — 2-toifa qandli diabet", status:"discharged", phone:"+998901234572", admit:"2026-05-05" },
+  { id:"P007", name:"Holiqov Mansur Tohirovich", age:49, gender:"Erkak", dept:"Jarrohlik", diag:"K80 — O't tosh kasalligi", status:"active", phone:"+998901234573", admit:"2026-05-13" },
+  { id:"P008", name:"Nazarova Hulkar Ravshanova", age:28, gender:"Ayol", dept:"Pediatriya", diag:"J18 — Pnevmoniya", status:"active", phone:"+998901234574", admit:"2026-05-15" },
+  { id:"P009", name:"Xasanov Rustam Ulugbekovich", age:71, gender:"Erkak", dept:"Nevrologiya", diag:"G20 — Parkinson kasalligi", status:"active", phone:"+998901234575", admit:"2026-05-08" },
+  { id:"P010", name:"Mirzayeva Dilnoza Shamsiyevna", age:39, gender:"Ayol", dept:"Terapiya", diag:"K73 — Surunkali gepatit", status:"discharged", phone:"+998901234576", admit:"2026-05-03" },
+  { id:"P011", name:"Qodirov Alisher Bahodir o'g'li", age:52, gender:"Erkak", dept:"Kardiologiya", diag:"I48 — Yurak fibrillatsiyasi", status:"urgent", phone:"+998901234577", admit:"2026-05-16" },
+  { id:"P012", name:"Ismoilova Barno Saidovna", age:44, gender:"Ayol", dept:"Ginekologiya", diag:"C53 — Bachadon bo'yni o'smasi", status:"active", phone:"+998901234578", admit:"2026-05-07" },
+  { id:"P013", name:"Sobirov Eldor Muhammadovich", age:33, gender:"Erkak", dept:"Jarrohlik", diag:"K35 — O'tkir appenditsit", status:"discharged", phone:"+998901234579", admit:"2026-05-02" },
+  { id:"P014", name:"Yunusova Sevinch Otajonovna", age:19, gender:"Ayol", dept:"Terapiya", diag:"A02 — Salmonellyoz", status:"active", phone:"+998901234580", admit:"2026-05-15" },
+  { id:"P015", name:"Kamolov Davron Hamzayevich", age:63, gender:"Erkak", dept:"Nevrologiya", diag:"G40 — Epilepsiya", status:"active", phone:"+998901234581", admit:"2026-05-11" },
+  { id:"P016", name:"Pulatova Lola Toxirovna", age:47, gender:"Ayol", dept:"Kardiologiya", diag:"I10 — Arterial gipertenziya", status:"active", phone:"+998901234582", admit:"2026-05-10" },
+  { id:"P017", name:"Jo'rayev Nodir Anvarovich", age:56, gender:"Erkak", dept:"Terapiya", diag:"K25 — Me'da yarasi", status:"active", phone:"+998901234583", admit:"2026-05-12" },
+  { id:"P018", name:"Tursunova Nodira Erkinovna", age:27, gender:"Ayol", dept:"Ginekologiya", diag:"O20 — Erta qon ketish", status:"urgent", phone:"+998901234584", admit:"2026-05-16" },
+];
+
+const DOCTORS = [
+  { id:"D001", name:"Dr. Karimov Behruz Toshpulatovich", spec:"Kardiologiya", degree:"Tibbiyot fanlari doktori", exp:18, patients:42, status:"Navbatchilik", phone:"+998711000001" },
+  { id:"D002", name:"Dr. Rashidova Feruza Alijonovna", spec:"Ginekologiya", degree:"Professor", exp:22, patients:35, status:"Faol", phone:"+998711000002" },
+  { id:"D003", name:"Dr. Hasanov Mirzo Hamidovich", spec:"Terapiya", degree:"Tibbiyot fanlari nomzodi", exp:11, patients:55, status:"Faol", phone:"+998711000003" },
+  { id:"D004", name:"Dr. Mirzayev Ulugbek Normatovich", spec:"Nevrologiya", degree:"Tibbiyot fanlari doktori", exp:15, patients:38, status:"Faol", phone:"+998711000004" },
+  { id:"D005", name:"Dr. Nazarova Dilorom Saidovna", spec:"Pediatriya", degree:"Oliy toifali shifokor", exp:9, patients:47, status:"Faol", phone:"+998711000005" },
+  { id:"D006", name:"Dr. Toshqo'ziyev Sanjar Raufovich", spec:"Jarrohlik", degree:"Tibbiyot fanlari doktori", exp:20, patients:31, status:"Operatsiyada", phone:"+998711000006" },
+  { id:"D007", name:"Dr. Abdullayeva Mohira Yunusovna", spec:"Kardiologiya", degree:"Tibbiyot fanlari nomzodi", exp:8, patients:28, status:"Faol", phone:"+998711000007" },
+  { id:"D008", name:"Dr. Yusupov Kamol Zafarovich", spec:"Terapiya", degree:"Oliy toifali shifokor", exp:14, patients:33, status:"Ta'tilda", phone:"+998711000008" },
+  { id:"D009", name:"Dr. Hamroyeva Nasiba Tohirovna", spec:"Nevrologiya", degree:"Tibbiyot fanlari nomzodi", exp:7, patients:22, status:"Faol", phone:"+998711000009" },
+  { id:"D010", name:"Dr. Qosimov Sherzod Iskandarovich", spec:"Jarrohlik", degree:"Professor", exp:25, patients:18, status:"Navbatchilik", phone:"+998711000010" },
+  { id:"D011", name:"Dr. Xoliqova Barno Rашидовna", spec:"Ginekologiya", degree:"Oliy toifali shifokor", exp:12, patients:29, status:"Faol", phone:"+998711000011" },
+  { id:"D012", name:"Dr. Ergashev Timur Botirovich", spec:"Terapiya", degree:"Tibbiyot fanlari nomzodi", exp:6, patients:21, status:"Faol", phone:"+998711000012" },
+];
+
+const APPOINTMENTS = [
+  { id:"Q001", patient:"Azimov Sardor", doctor:"Dr. Karimov B.", dept:"Kardiologiya", date:"2026-05-16", time:"09:00", reason:"Nazorat tekshiruvi", status:"Tugallangan" },
+  { id:"Q002", patient:"Yusupova Nilufar", doctor:"Dr. Rashidova F.", dept:"Ginekologiya", date:"2026-05-16", time:"09:30", reason:"Muntazam tekshiruv", status:"Tugallangan" },
+  { id:"Q003", patient:"Toshmatov Bobur", doctor:"Dr. Mirzayev U.", dept:"Nevrologiya", date:"2026-05-16", time:"10:00", reason:"MRI natijasi ko'rish", status:"Tugallangan" },
+  { id:"Q004", patient:"Ergasheva Maftuna", doctor:"Dr. Hasanov M.", dept:"Terapiya", date:"2026-05-16", time:"10:30", reason:"Astma davolash", status:"Tugallangan" },
+  { id:"Q005", patient:"Rahimov Jasur", doctor:"Dr. Karimov B.", dept:"Kardiologiya", date:"2026-05-16", time:"11:00", reason:"EKG tekshiruvi", status:"Tugallangan" },
+  { id:"Q006", patient:"Holiqov Mansur", doctor:"Dr. Toshqo'ziyev S.", dept:"Jarrohlik", date:"2026-05-16", time:"11:30", reason:"Operatsiyadan oldin", status:"Tugallangan" },
+  { id:"Q007", patient:"Pulatova Lola", doctor:"Dr. Abdullayeva M.", dept:"Kardiologiya", date:"2026-05-16", time:"12:00", reason:"Bosim nazorat", status:"Kutmoqda" },
+  { id:"Q008", patient:"Jo'rayev Nodir", doctor:"Dr. Hasanov M.", dept:"Terapiya", date:"2026-05-16", time:"12:30", reason:"Dori o'zgartirish", status:"Kutmoqda" },
+  { id:"Q009", patient:"Kamolov Davron", doctor:"Dr. Mirzayev U.", dept:"Nevrologiya", date:"2026-05-16", time:"13:00", reason:"EEG natijasi", status:"Kutmoqda" },
+  { id:"Q010", patient:"Nazarova Hulkar", doctor:"Dr. Nazarova D.", dept:"Pediatriya", date:"2026-05-16", time:"13:30", reason:"Bolasi uchun", status:"Kutmoqda" },
+  { id:"Q011", patient:"Xasanov Rustam", doctor:"Dr. Hamroyeva N.", dept:"Nevrologiya", date:"2026-05-16", time:"14:00", reason:"Muntazam nazorat", status:"Kutmoqda" },
+  { id:"Q012", patient:"Ismoilova Barno", doctor:"Dr. Rashidova F.", dept:"Ginekologiya", date:"2026-05-16", time:"14:30", reason:"Kimyoterapiya nazorat", status:"Kutmoqda" },
+  { id:"Q013", patient:"Yunusova Sevinch", doctor:"Dr. Ergashev T.", dept:"Terapiya", date:"2026-05-16", time:"15:00", reason:"Tahlil natijalari", status:"Kutmoqda" },
+  { id:"Q014", patient:"Sobirov Eldor", doctor:"Dr. Toshqo'ziyev S.", dept:"Jarrohlik", date:"2026-05-15", time:"10:00", reason:"Tikuv ko'rish", status:"Tugallangan" },
+  { id:"Q015", patient:"Sodiqova Zulfiya", doctor:"Dr. Hasanov M.", dept:"Terapiya", date:"2026-05-15", time:"11:00", reason:"Shakar nazorat", status:"Tugallangan" },
+  { id:"Q016", patient:"Mirzayeva Dilnoza", doctor:"Dr. Hasanov M.", dept:"Terapiya", date:"2026-05-14", time:"09:00", reason:"Gepatit tekshiruvi", status:"Tugallangan" },
+  { id:"Q017", patient:"Tursunova Nodira", doctor:"Dr. Rashidova F.", dept:"Ginekologiya", date:"2026-05-16", time:"16:00", reason:"Shoshilinch qabul", status:"Bekor qilindi" },
+];
+
+const DEPARTMENTS = [
+  { name:"Kardiologiya", head:"Prof. Karimov B.T.", doctors:8, patients:42, rooms:12, status:"Faol" },
+  { name:"Nevrologiya", head:"Prof. Mirzayev U.N.", doctors:6, patients:38, rooms:10, status:"Faol" },
+  { name:"Terapiya", head:"Doc. Hasanov M.H.", doctors:10, patients:55, rooms:18, status:"Faol" },
+  { name:"Jarrohlik", head:"Prof. Qosimov Sh.I.", doctors:5, patients:31, rooms:8, status:"Faol" },
+  { name:"Pediatriya", head:"Doc. Nazarova D.S.", doctors:7, patients:47, rooms:15, status:"Faol" },
+  { name:"Ginekologiya", head:"Prof. Rashidova F.A.", doctors:4, patients:35, rooms:10, status:"Faol" },
+  { name:"Endokrinologiya", head:"Doc. Ergashev T.B.", doctors:3, patients:22, rooms:6, status:"Faol" },
+  { name:"Onkologiya", head:"Doc. Xoliqova B.R.", doctors:4, patients:18, rooms:8, status:"Faol" },
+  { name:"Anesteziologiya", head:"Doc. Yusupov K.Z.", doctors:3, patients:0, rooms:2, status:"Faol" },
+  { name:"Rentgen/MRI", head:"Sh. Abdullayev F.", doctors:2, patients:0, rooms:4, status:"Faol" },
+  { name:"Laboratoriya", head:"Sh. Qodirov A.", doctors:2, patients:0, rooms:3, status:"Faol" },
+  { name:"Tez yordam", head:"Doc. Toshqo'ziyev S.R.", doctors:5, patients:0, rooms:5, status:"Navbatchilik" },
+];
+
 const MKB_DATA = [
   { code: "A00-B99", name: "I SINF — Ba'zi infeksion va parazitar kasalliklar", ru: "КЛАСС I — НЕКОТОРЫЕ ИНФЕКЦИОННЫЕ И ПАРАЗИТАРНЫЕ БОЛЕЗНИ", type: "class" },
   { code: "A00-A09", name: "ICHAK INFEKSIYALARI", ru: "КИШЕЧНЫЕ ИНФЕКЦИИ", type: "group" },
   { code: "A00", name: "Vabo", ru: "Холера" },
   { code: "A00.0", name: "Vabo vibrioni qo'zg'atgan vabo, biovar cholerae", ru: "Холера, вызванная холерным вибрионом 01, биовар cholerae" },
   { code: "A00.1", name: "Vabo vibrioni qo'zg'atgan vabo, biovar eltor", ru: "Холера, вызванная холерным вибрионом 01, биовар eltor" },
-  { code: "A00.2", name: "Vibrio cholerae O1 bo'lmagan qo'zg'atuvchili vabo", ru: "Холера, вызванная Vibrio cholerae не О1" },
-  { code: "A00.3", name: "Aniqlanmagan vabo", ru: "Холера неуточненная" },
   { code: "A01", name: "Tif (Terlama) va paratif", ru: "Тиф и паратиф" },
   { code: "A01.0", name: "Ich terlama", ru: "Брюшной тиф" },
-  { code: "A01.1", name: "Paratif A", ru: "Паратиф A" },
-  { code: "A01.2", name: "Paratif B", ru: "Паратиф B" },
-  { code: "A01.3", name: "Paratif C", ru: "Паратиф C" },
-  { code: "A01.4", name: "Aniqlanmagan paratif", ru: "Паратиф неуточненный" },
   { code: "A02", name: "Boshqa salmonellez infeksiyalar", ru: "Другие сальмонеллезные инфекции" },
   { code: "A02.0", name: "Salmonellyozli enterit", ru: "Сальмонеллезный энтерит" },
-  { code: "A02.1", name: "Salmonellyozli septitsemiya", ru: "Сальмонеллезная септицемия" },
-  { code: "A02.2", name: "Lokalizatsiyalangan salmonellyoz infeksiyasi", ru: "Локализованная сальмонеллезная инфекция" },
   { code: "A03", name: "Shigellyoz (dizenteriya)", ru: "Шигеллез" },
-  { code: "A03.0", name: "Shigella dysenteriae qo'zg'atgan shigellyoz", ru: "Шигеллез, вызванный Shigella dysenteriae" },
-  { code: "A03.1", name: "Shigella flexneri qo'zg'atgan shigellyoz", ru: "Шигеллез, вызванный Shigella flexneri" },
   { code: "A04", name: "Boshqa bakterial ichak infeksiyalari", ru: "Другие бактериальные кишечные инфекции" },
-  { code: "A04.0", name: "Enteropatogen E. coli infeksiyasi", ru: "Инфекция, вызванная энтеропатогенными E. coli" },
   { code: "A05", name: "Oziq-ovqat zaharlanishlari", ru: "Другие бактериальные пищевые отравления" },
   { code: "A06", name: "Amyobiaz", ru: "Амёбиаз" },
-  { code: "A06.0", name: "O'tkir amyobiyoz dizenteriya", ru: "Острая амёбная дизентерия" },
   { code: "A09", name: "Gasterenterit va kolit", ru: "Гастроэнтерит и колит" },
   { code: "A10-A19", name: "SIL (TUBERKULYOZ)", ru: "ТУБЕРКУЛЁЗ", type: "group" },
   { code: "A15", name: "Bakteriologik va gistologik tasdiqlangan o'pka sili", ru: "Туберкулёз органов дыхания, подтверждённый бактериологически" },
-  { code: "A16", name: "Bakteriologik tasdiqlangan o'pka sili", ru: "Туберкулёз органов дыхания без подтверждения" },
+  { code: "A16", name: "Tasdiqlangan o'pka sili", ru: "Туберкулёз органов дыхания без подтверждения" },
   { code: "A17", name: "Asab sistemasi sili", ru: "Туберкулёз нервной системы" },
   { code: "A18", name: "Boshqa organlardagi sil", ru: "Туберкулёз других органов" },
   { code: "A19", name: "Tarqalgan sil", ru: "Диссеминированный туберкулёз" },
@@ -467,8 +826,6 @@ const MKB_DATA = [
   { code: "A30-A49", name: "BOSHQA BAKTERIAL KASALLIKLAR", ru: "ДРУГИЕ БАКТЕРИАЛЬНЫЕ БОЛЕЗНИ", type: "group" },
   { code: "A30", name: "Moxov (Lepra)", ru: "Лепра" },
   { code: "A33", name: "Yangi tug'ilgan bolalarda qoqshol", ru: "Столбняк новорождённых" },
-  { code: "A34", name: "Akusherlik qoqsholi", ru: "Акушерский столбняк" },
-  { code: "A35", name: "Boshqa qoqshol", ru: "Другой столбняк" },
   { code: "A36", name: "Difteriya", ru: "Дифтерия" },
   { code: "A37", name: "Ko'kyutal", ru: "Коклюш" },
   { code: "A38", name: "Qizilcha (Qizamiq)", ru: "Скарлатина" },
@@ -477,10 +834,7 @@ const MKB_DATA = [
   { code: "A41", name: "Boshqa septitsemiya", ru: "Другая септицемия" },
   { code: "A50-A64", name: "JINSIY YO'L BILAN YUQADIGAN INFEKSIYALAR", ru: "ИНФЕКЦИИ, ПЕРЕДАВАЕМЫЕ ПОЛОВЫМ ПУТЁМ", type: "group" },
   { code: "A50", name: "Tug'ma zaxm (Sifilis)", ru: "Врождённый сифилис" },
-  { code: "A51", name: "Birlamchi zaxm", ru: "Ранний сифилис" },
   { code: "A54", name: "Gonokokkli infeksiya", ru: "Гонококковая инфекция" },
-  { code: "A55", name: "Xlamidiyli limfogranulema", ru: "Хламидийная лимфогранулема" },
-  { code: "A60-A79", name: "BOSHQA VIRUSLI KASALLIKLAR", ru: "ДРУГИЕ ВИРУСНЫЕ БОЛЕЗНИ", type: "group" },
   { code: "B00-B09", name: "VIRUS VA TERINI ZARARLANTIRUVCHI INFEKSIYALAR", ru: "ВИРУСНЫЕ ИНФЕКЦИИ, ХАРАКТЕРИЗУЮЩИЕСЯ ПОРАЖЕНИЕМ КОЖИ", type: "group" },
   { code: "B00", name: "Gerpes simplex infeksiyasi", ru: "Инфекция, вызванная вирусом простого герпеса" },
   { code: "B01", name: "Suv chechagi (Varisella)", ru: "Ветряная оспа" },
@@ -496,43 +850,33 @@ const MKB_DATA = [
   { code: "B20", name: "OIV kasalligi, infeksion kasalliklarni keltirib chiqargan", ru: "Болезнь, вызванная ВИЧ, с проявлениями инфекционных болезней" },
   { code: "B24", name: "Aniqlanmagan OIV kasalligi", ru: "Болезнь, вызванная ВИЧ, неуточнённая" },
   { code: "C00-D48", name: "II SINF — O'SMALAR", ru: "КЛАСС II — НОВООБРАЗОВАНИЯ", type: "class" },
-  { code: "C00-C14", name: "LAB, OG'IZ BO'SHLIG'I VA HALQUM O'SMALARI", ru: "ЗЛОКАЧЕСТВЕННЫЕ НОВООБРАЗОВАНИЯ ГУБЫ, ПОЛОСТИ РТА И ГЛОТКИ", type: "group" },
   { code: "C15", name: "Qizilo'ngach o'smasi", ru: "Злокачественное новообразование пищевода" },
   { code: "C16", name: "Me'da o'smasi", ru: "Злокачественное новообразование желудка" },
   { code: "C18", name: "Yo'g'on ichak o'smasi", ru: "Злокачественное новообразование ободочной кишки" },
   { code: "C20", name: "To'g'ri ichak o'smasi", ru: "Злокачественное новообразование прямой кишки" },
   { code: "C22", name: "Jigar va o't yo'llari o'smasi", ru: "Злокачественное новообразование печени" },
   { code: "C25", name: "Oshqozon osti bezi o'smasi", ru: "Злокачественное новообразование поджелудочной железы" },
-  { code: "C32", name: "Hiqildoq o'smasi", ru: "Злокачественное новообразование гортани" },
-  { code: "C33", name: "Traxeya o'smasi", ru: "Злокачественное новообразование трахеи" },
   { code: "C34", name: "Bronx va o'pka o'smasi", ru: "Злокачественное новообразование бронхов и лёгкого" },
   { code: "C43", name: "Melanoma", ru: "Злокачественная меланома кожи" },
   { code: "C50", name: "Ko'krak bezi o'smasi", ru: "Злокачественное новообразование молочной железы" },
   { code: "C53", name: "Bachadon bo'yni o'smasi", ru: "Злокачественное новообразование шейки матки" },
-  { code: "C54", name: "Bachadon tanasi o'smasi", ru: "Злокачественное новообразование тела матки" },
   { code: "C56", name: "Tuxumdon o'smasi", ru: "Злокачественное новообразование яичника" },
   { code: "C61", name: "Prostata bezi o'smasi", ru: "Злокачественное новообразование предстательной железы" },
   { code: "C64", name: "Buyrak o'smasi", ru: "Злокачественное новообразование почки" },
-  { code: "C67", name: "Siydik pufagi o'smasi", ru: "Злокачественное новообразование мочевого пузыря" },
   { code: "C71", name: "Bosh miya o'smasi", ru: "Злокачественное новообразование головного мозга" },
-  { code: "C81", name: "Xojkin limfomasi", ru: "Болезнь Ходжкина" },
-  { code: "C90", name: "Ko'p marta mielon", ru: "Множественная миелома" },
   { code: "C91", name: "Limfoid leykemiya", ru: "Лимфоидный лейкоз" },
   { code: "C92", name: "Mieloid leykemiya", ru: "Миелоидный лейкоз" },
   { code: "E00-E90", name: "IV SINF — ENDOKRIN, OZIQ-OVQAT VA MODDALAR ALMASHINUVI KASALLIKLARI", ru: "КЛАСС IV — БОЛЕЗНИ ЭНДОКРИННОЙ СИСТЕМЫ", type: "class" },
   { code: "E10", name: "1-toifa qandli diabet (insulin qaram)", ru: "Инсулинозависимый сахарный диабет" },
   { code: "E11", name: "2-toifa qandli diabet", ru: "Инсулинонезависимый сахарный диабет" },
-  { code: "E14", name: "Aniqlanmagan qandli diabet", ru: "Сахарный диабет неуточнённый" },
   { code: "E05", name: "Tirotoksikoz (gipertireoz)", ru: "Тиреотоксикоз" },
   { code: "E06", name: "Tiroidit", ru: "Тиреоидит" },
   { code: "E03", name: "Boshqa gipotiroidizm", ru: "Другой гипотиреоз" },
-  { code: "E40-E46", name: "OZIQLANISH YETISHMOVCHILIGI", ru: "НЕДОСТАТОЧНОСТЬ ПИТАНИЯ", type: "group" },
   { code: "E50", name: "A vitamini yetishmovchiligi", ru: "Недостаточность витамина A" },
   { code: "E55", name: "D vitamini yetishmovchiligi", ru: "Недостаточность витамина D" },
   { code: "F00-F99", name: "V SINF — RUHIY BUZILISHLAR", ru: "КЛАСС V — ПСИХИЧЕСКИЕ РАССТРОЙСТВА", type: "class" },
   { code: "F00", name: "Alzgeymer kasalligidagi demensiya", ru: "Деменция при болезни Альцгеймера" },
   { code: "F20", name: "Shizofreniya", ru: "Шизофрения" },
-  { code: "F30", name: "Maniakal epizod", ru: "Маниакальный эпизод" },
   { code: "F32", name: "Depressiv epizod", ru: "Депрессивный эпизод" },
   { code: "F40", name: "Fobiyali xavotir buzilishi", ru: "Фобические тревожные расстройства" },
   { code: "F41", name: "Boshqa xavotir buzilishlari", ru: "Другие тревожные расстройства" },
@@ -588,209 +932,289 @@ const MKB_DATA = [
   { code: "O14", name: "Preeklampsiya", ru: "Преэклампсия" },
   { code: "O15", name: "Eklampsiya", ru: "Эклампсия" },
   { code: "O20", name: "Erta homiladorlikda qon ketish", ru: "Кровотечение в ранние сроки беременности" },
-  { code: "S00-T98", name: "XIX SINF — JAROHATLAR VA ZAHARLANISHLAR", ru: "КЛАСС XIX — ТРАВМЫ, ОТРАВЛЕНИЯ И ДРУГИЕ ПОСЛЕДСТВИЯ ВНЕШНИХ ПРИЧИН", type: "class" },
+  { code: "S00-T98", name: "XIX SINF — JAROHATLAR VA ZAHARLANISHLAR", ru: "КЛАСС XIX — ТРАВМЫ, ОТРАВЛЕНИЯ", type: "class" },
   { code: "S06", name: "Bosh miya jarohat", ru: "Внутричерепная травма" },
   { code: "S72", name: "Son suyagi sinishi", ru: "Перелом бедренной кости" },
-  { code: "T36-T65", name: "ZAHARLI MODDALAR TA'SIRI", ru: "ОТРАВЛЕНИЕ ЛЕКАРСТВЕННЫМИ СРЕДСТВАМИ", type: "group" },
-  { code: "T71", name: "Bo'g'ilishdan o'lim", ru: "Асфиксия" },
   { code: "Z00-Z99", name: "XXI SINF — SOG'LIQ HOLATINI TA'SIRLAYDIGAN OMILLAR", ru: "КЛАСС XXI — ФАКТОРЫ, ВЛИЯЮЩИЕ НА СОСТОЯНИЕ ЗДОРОВЬЯ", type: "class" },
 ];
 
-// ── DRUG DATA ──
 const DRUG_DATA = [
-  { num: "1", cat: "Markaziy asab tizimiga ta'sir qiluvchi vositalar", name: "Izofluran", form: "100 ml; 250 ml ingalatsiya uchun eritma" },
-  { num: "2", cat: "Markaziy asab tizimiga ta'sir qiluvchi vositalar", name: "Sevofluran", form: "250 ml ingalatsiya uchun eritma" },
-  { num: "3", cat: "Narkoz vositalari", name: "Natriy oksibutirat", form: "200 mg/ml 5 ml; 10 ml inyeksiya uchun eritma" },
-  { num: "4", cat: "Narkoz vositalari", name: "Tiopental natriy", form: "0,5 g; 1,0 g inyeksiya uchun liofillangan kukun" },
-  { num: "5", cat: "Narkoz vositalari", name: "Ketamin", form: "50 mg/ml 2 ml; 5 ml inyeksiya uchun eritma" },
-  { num: "6", cat: "Narkoz vositalari", name: "Propofol", form: "1% 10 ml; 20 ml; 50 ml / 2% 50 ml inyeksiya uchun emulsiya" },
-  { num: "7", cat: "Uxlatuvchi vositalar", name: "Midazolam", form: "5 mg/ml 1 ml; 3 ml inyeksiya uchun eritma" },
-  { num: "8", cat: "Tutqanoqqa qarshi vositalar", name: "Fenobarbital", form: "100 mg tabletkalar, kukun" },
-  { num: "9", cat: "Tutqanoqqa qarshi vositalar", name: "Karbamazepin", form: "200 mg; 400 mg tabletkalar" },
-  { num: "10", cat: "Tutqanoqqa qarshi vositalar", name: "Valproat kislotasi", form: "300–500 mg tabletkalar, kapsulalar, sirop, inyeksiya" },
-  { num: "11", cat: "Tutqanoqqa qarshi vositalar", name: "Lamotridjin", form: "25 mg; 50 mg; 100 mg tabletkalar" },
-  { num: "12", cat: "Neyroleptik vositalar", name: "Galoperidol", form: "1,5 mg; 5 mg tabletkalar; 5 mg/ml inyeksiya" },
-  { num: "13", cat: "Neyroleptik vositalar", name: "Klozapin", form: "25 mg; 100 mg tabletkalar" },
-  { num: "14", cat: "Neyroleptik vositalar", name: "Risperidon", form: "1 mg; 2 mg; 3 mg; 4 mg tabletkalar" },
-  { num: "15", cat: "Neyroleptik vositalar", name: "Kvetiapin", form: "25–300 mg tabletkalar" },
-  { num: "16", cat: "Neyroleptik vositalar", name: "Olanzapin", form: "2,5–20 mg tabletkalar" },
-  { num: "17", cat: "Trankvilizatorlar", name: "Diazepam", form: "5 mg tabletkalar; 5 mg/ml 2 ml inyeksiya uchun eritma" },
-  { num: "18", cat: "Trankvilizatorlar", name: "Alprazolam", form: "0,25 mg; 0,5 mg; 1 mg tabletkalar" },
-  { num: "19", cat: "Antidepressantlar", name: "Amitriptilin", form: "10 mg; 25 mg tabletkalar; 10 mg/2ml inyeksiya" },
-  { num: "20", cat: "Antidepressantlar", name: "Fluoksetin", form: "20 mg kapsulalar" },
-  { num: "21", cat: "Antidepressantlar", name: "Sertralin", form: "50 mg; 100 mg tabletkalar" },
-  { num: "22", cat: "Antidepressantlar", name: "Essitalopram", form: "10 mg; 20 mg tabletkalar" },
-  { num: "23", cat: "Nootroplar", name: "Piratsetam", form: "200–1200 mg tabletkalar, kapsulalar, inyeksiya, infuziya" },
-  { num: "24", cat: "Nootroplar", name: "Sitikolin", form: "500–1000 mg inyeksiya; 250 mg tabletkalar" },
-  { num: "25", cat: "Parkinsonizmga qarshi", name: "Levodopa/Karbidopa", form: "250 mg/25 mg tabletkalar" },
-  { num: "26", cat: "Narkotik analgetiklar", name: "Morfin", form: "10 mg; 30 mg; 60 mg; 100 mg tabletkalar; 10 mg/ml inyeksiya" },
-  { num: "27", cat: "Narkotik analgetiklar", name: "Fentanil", form: "50 mkg/ml 1 ml; 2 ml inyeksiya uchun eritma" },
-  { num: "28", cat: "Aralash analgetiklar", name: "Tramadol", form: "50 mg; 100 mg tabletkalar, kapsulalar, inyeksiya" },
-  { num: "29", cat: "Nonarkotik analgetiklar", name: "Metamizol natriy (Analgin)", form: "500 mg tabletkalar; 250–500 mg/ml inyeksiya" },
-  { num: "30", cat: "Nonarkotik analgetiklar", name: "Paratsetamol", form: "200–500 mg tabletkalar; suspenziya; infuziya; shamchalar" },
-  { num: "31", cat: "YANA (NSAIDs)", name: "Diklofenak", form: "25–100 mg tabletkalar; 75 mg inyeksiya; gel; ko'z tomchi" },
-  { num: "32", cat: "YANA (NSAIDs)", name: "Ibuprofen", form: "200–800 mg tabletkalar, kapsulalar, suspenziya, infuziya" },
-  { num: "33", cat: "YANA (NSAIDs)", name: "Meloksikam", form: "7,5 mg; 15 mg tabletkalar; inyeksiya; surtma" },
-  { num: "34", cat: "YANA (NSAIDs)", name: "Ketorolak", form: "7,5–10 mg tabletkalar; 30 mg/ml inyeksiya; gel; ko'z tomchi" },
-  { num: "35", cat: "Miorelaksantlar", name: "Tolperizon", form: "50 mg; 150 mg tabletkalar, kapsulalar; inyeksiya" },
-  { num: "36", cat: "Miorelaksantlar", name: "Tizanidin", form: "2 mg; 4 mg tabletkalar" },
-  { num: "37", cat: "Qusishga qarshi", name: "Metoklopramid", form: "10 mg tabletkalar; 0,5% 2 ml inyeksiya" },
-  { num: "38", cat: "Qusishga qarshi", name: "Ondansetron", form: "4 mg; 8 mg tabletkalar; 2 mg/ml inyeksiya" },
-  { num: "39", cat: "Me'da yarasi uchun", name: "Ranitidin", form: "150 mg tabletkalar; 2,5% 2 ml inyeksiya" },
-  { num: "40", cat: "Proton nasos ingibitorlari", name: "Omeprazol", form: "20 mg; 40 mg kapsulalar; 40 mg inyeksiya uchun kukun" },
-  { num: "41", cat: "Proton nasos ingibitorlari", name: "Pantoprozol", form: "20 mg; 40 mg tabletkalar; 40 mg inyeksiya uchun kukun" },
-  { num: "42", cat: "Astma va COPD uchun", name: "Salbutamol", form: "100 mkg/doza aerozol; ingalatsiya uchun eritma" },
-  { num: "43", cat: "Astma va COPD uchun", name: "Budesonid + Formoterol", form: "(80+4,5) – (400+12) mkg aerozol" },
-  { num: "44", cat: "Astma va COPD uchun", name: "Tiotropiy bromid", form: "10 mkg; 18 mkg ingalatsiya uchun kapsulalar" },
-  { num: "45", cat: "Bronxolitik vositalar", name: "Montelukast natriy", form: "10 mg tabletkalar; 4–5 mg chaynaladigan tabletkalar" },
-  { num: "46", cat: "Balgʻam koʻchiruvchi", name: "Ambroksol", form: "30 mg tabletkalar; sirop; inyeksiya; ichish uchun eritma" },
-  { num: "47", cat: "Balgʻam koʻchiruvchi", name: "Atsetilsistein", form: "600 mg vishillovchi tabletkalar; 200–600 mg granulalar" },
-  { num: "48", cat: "Yurak-qon tomir", name: "Trimetazidin", form: "20 mg; 35 mg uzaytirilgan tabletkalar; 80 mg kapsulalar" },
-  { num: "49", cat: "Antiaritmik", name: "Amiodaron", form: "200 mg tabletkalar; 50 mg/ml 3 ml inyeksiya" },
-  { num: "50", cat: "Antianginal", name: "Nitroglitserin", form: "0,5 mg sublingval tabletkalar; sprey; infuziya" },
-  { num: "51", cat: "Gipolipidemik", name: "Atorvastatin", form: "10 mg; 20 mg; 40 mg; 80 mg tabletkalar" },
-  { num: "52", cat: "Gipolipidemik", name: "Rozuvastatin", form: "5 mg; 10 mg; 20 mg; 40 mg tabletkalar" },
-  { num: "53", cat: "Antiagregantlar", name: "Klopidogrel", form: "75 mg; 300 mg tabletkalar" },
-  { num: "54", cat: "Antiagregantlar", name: "Atsetilsalitsil kislotasi (Aspirin)", form: "50–500 mg tabletkalar" },
-  { num: "55", cat: "Beta-blokatorlar", name: "Bisoprolol", form: "2,5 mg; 5,0 mg; 10,0 mg tabletkalar" },
-  { num: "56", cat: "Beta-blokatorlar", name: "Metoprolol suksinat", form: "25 mg; 50 mg; 100 mg tabletkalar" },
-  { num: "57", cat: "Beta-blokatorlar", name: "Nebivolol", form: "2,5 mg; 5,0 mg tabletkalar" },
-  { num: "58", cat: "Antigipertenziv", name: "Amlodipin", form: "2,5 mg; 5 mg; 10 mg tabletkalar" },
-  { num: "59", cat: "Antigipertenziv", name: "Nifedipin", form: "10 mg; 20 mg; 30 mg tabletkalar" },
-  { num: "60", cat: "Antigipertenziv (AXF ingibitorlar)", name: "Enalapril maleat", form: "2,5 mg; 5 mg; 10 mg tabletkalar" },
-  { num: "61", cat: "Antigipertenziv (AXF ingibitorlar)", name: "Lizinopril", form: "5 mg; 10 mg; 20 mg tabletkalar" },
-  { num: "62", cat: "Antigipertenziv (ARB)", name: "Lozartan", form: "25 mg; 50 mg; 100 mg tabletkalar" },
-  { num: "63", cat: "Antigipertenziv (ARB)", name: "Valsartan", form: "40 mg; 80 mg; 160 mg; 320 mg tabletkalar" },
-  { num: "64", cat: "Antikoagulyantlar", name: "Geparin", form: "5000–25000 XB inyeksiya; gel" },
-  { num: "65", cat: "Antikoagulyantlar", name: "Enoksaparin natriy", form: "2000–8000 anti-Xa XB inyeksiya uchun eritma" },
-  { num: "66", cat: "Antikoagulyantlar", name: "Varfarin", form: "2,5 mg tabletkalar" },
-  { num: "67", cat: "Antikoagulyantlar", name: "Rivaroksaban", form: "2,5 mg; 10 mg; 15 mg; 20 mg tabletkalar" },
-  { num: "68", cat: "Diuretiklar", name: "Furosemid", form: "40 mg tabletkalar; 1% 2 ml inyeksiya" },
-  { num: "69", cat: "Diuretiklar", name: "Torasemid", form: "2,5–20 mg tabletkalar; inyeksiya" },
-  { num: "70", cat: "Diuretiklar", name: "Spironolakton", form: "25 mg; 50 mg; 100 mg tabletkalar, kapsulalar" },
-  { num: "71", cat: "Allergiyaga qarshi", name: "Setirizin", form: "10 mg tabletkalar; tomchilar; sirop" },
-  { num: "72", cat: "Allergiyaga qarshi", name: "Levotsetirizin", form: "5 mg tabletkalar; tomchilar; sirop" },
-  { num: "73", cat: "Allergiyaga qarshi", name: "Dezloratadin", form: "5 mg; 10 mg tabletkalar; eritma; sirop" },
-  { num: "74", cat: "Mahalliy anesteziya", name: "Lidokain", form: "0,5–10% eritma; plastir; ko'z tomchi; aerozol" },
-  { num: "75", cat: "Gormonlar (kortikosteroidlar)", name: "Prednizolon", form: "5 mg tabletkalar; 30 mg/ml inyeksiya; surtma" },
-  { num: "76", cat: "Gormonlar (kortikosteroidlar)", name: "Deksametazon", form: "0,4–0,5% 1–2 ml inyeksiya; 0,5 mg tabletkalar; ko'z tomchi" },
-  { num: "77", cat: "Gormonlar (kortikosteroidlar)", name: "Metilprednizolon", form: "4 mg; 16 mg tabletkalar; 250–1000 mg inyeksiya" },
-  { num: "78", cat: "Gormonlar (kortikosteroidlar)", name: "Beklometazon", form: "50–250 mkg/doza aerozol; nazal sprey" },
-  { num: "79", cat: "Gormonlar (kortikosteroidlar)", name: "Flutikazon propionat", form: "50–250 mkg/doza aerozol; nazal sprey" },
-  { num: "80", cat: "Qalqonsimon bez gormonlari", name: "Levotiroksin natriy", form: "25–100 mkg tabletkalar" },
-  { num: "81", cat: "Diabet vositalari", name: "Metformin", form: "500 mg; 850 mg; 1000 mg tabletkalar" },
-  { num: "82", cat: "Diabet vositalari", name: "Gliklazid", form: "30 mg; 60 mg tabletkalar" },
-  { num: "83", cat: "Diabet vositalari", name: "Glimepirid", form: "1 mg; 2 mg; 3 mg; 4 mg tabletkalar" },
-  { num: "84", cat: "Diabet vositalari", name: "Dapagliflozin", form: "5 mg; 10 mg tabletkalar" },
-  { num: "85", cat: "Insulinlar", name: "Qisqa ta'sirli insulin", form: "100 TB/ml 10 ml flakon; 3 ml kartridj" },
-  { num: "86", cat: "Insulinlar", name: "Uzoq ta'sirli insulin", form: "100 TB/ml 10 ml flakon; 3 ml kartridj" },
-  { num: "87", cat: "Vitaminlar", name: "Askorbin kislotasi (C vitamini)", form: "2,5–5% inyeksiya; tabletkalar; kukun" },
-  { num: "88", cat: "Vitaminlar", name: "Tiamin xlorid (B1 vitamini)", form: "2,5%; 5% 1 ml inyeksiya" },
-  { num: "89", cat: "Vitaminlar", name: "Piridoksin gidroxlorid (B6 vitamini)", form: "2,5%; 5% 1 ml inyeksiya" },
-  { num: "90", cat: "Vitaminlar", name: "Folat kislotasi (B9 vitamini)", form: "1 mg; 5 mg tabletkalar" },
-  { num: "91", cat: "Antibiotiklar (Penitsillin)", name: "Amoksitsillin", form: "250–500 mg kapsulalar, tabletkalar; suspenziya" },
-  { num: "92", cat: "Antibiotiklar (Penitsillin)", name: "Amoksitsillin/Klavulanat", form: "250–875 mg tabletkalar; suspenziya; venaga inyeksiya" },
-  { num: "93", cat: "Antibiotiklar (Tsefalosporin)", name: "Seftriakson", form: "0,5 g; 1,0 g inyeksiya uchun kukun" },
-  { num: "94", cat: "Antibiotiklar (Tsefalosporin)", name: "Sefazolin", form: "0,5 g; 1,0 g inyeksiya uchun kukun" },
-  { num: "95", cat: "Antibiotiklar (Tsefalosporin)", name: "Sefepim", form: "0,5 g; 1 g; 2 g inyeksiya uchun kukun" },
-  { num: "96", cat: "Antibiotiklar (Karbapenem)", name: "Meropenem", form: "500 mg; 1000 mg inyeksiya uchun kukun" },
-  { num: "97", cat: "Antibiotiklar (Makrolid)", name: "Azitromitsin", form: "250–500 mg tabletkalar, kapsulalar; suspenziya; infuziya" },
-  { num: "98", cat: "Antibiotiklar (Makrolid)", name: "Klaritromitsin", form: "250–500 mg tabletkalar; suspenziya" },
-  { num: "99", cat: "Antibiotiklar (Ftorxinolon)", name: "Siprofloksatsin", form: "250–750 mg tabletkalar; 2 mg/ml infuziya; ko'z tomchi" },
-  { num: "100", cat: "Antibiotiklar (Ftorxinolon)", name: "Levofloksatsin", form: "250–500 mg tabletkalar; 5 mg/ml infuziya" },
-  { num: "101", cat: "Antibiotiklar (Ftorxinolon)", name: "Moksifloksatsin", form: "400 mg tabletkalar; ko'z tomchi; 400 mg/100 ml infuziya" },
-  { num: "102", cat: "Sil uchun", name: "Rifampitsin", form: "150–300 mg kapsulalar; infuziya uchun kukun" },
-  { num: "103", cat: "Sil uchun", name: "Izoniazid", form: "100–300 mg tabletkalar; sirop" },
-  { num: "104", cat: "Sil uchun", name: "Pirazinamid", form: "500 mg tabletkalar" },
-  { num: "105", cat: "Sil uchun", name: "Etambutol", form: "400 mg tabletkalar; infuziya uchun konsentrat" },
-  { num: "106", cat: "Virusga qarshi", name: "Asiklovir", form: "200–400 mg tabletkalar; infuziya; krem; surtma" },
-  { num: "107", cat: "Virusga qarshi", name: "Valatsiklovir", form: "300 mg; 500 mg; 1000 mg tabletkalar" },
-  { num: "108", cat: "Virusga qarshi (OITS)", name: "Dolutegravir + Lamivudin + Tenofovir", form: "50+300+300 mg tabletkalar" },
-  { num: "109", cat: "Virusga qarshi (Gepatit)", name: "Sofosbuvir", form: "400 mg tabletkalar" },
-  { num: "110", cat: "Virusga qarshi (Gepatit)", name: "Entekavir", form: "0,5 mg; 1,0 mg tabletkalar" },
-  { num: "111", cat: "Zamburug'ga qarshi", name: "Flukonazol", form: "50–200 mg kapsulalar, tabletkalar; infuziya; sirop" },
-  { num: "112", cat: "Zamburug'ga qarshi", name: "Itrakonazol", form: "100 mg tabletkalar, kapsulalar" },
-  { num: "113", cat: "Parazitga qarshi", name: "Metronidazol", form: "200–500 mg tabletkalar; infuziya; vaginal shamcha; gel" },
-  { num: "114", cat: "Parazitga qarshi", name: "Albendazol", form: "200–400 mg tabletkalar; suspenziya" },
-  { num: "115", cat: "O'smaga qarshi", name: "Sisplatin", form: "1 mg/ml 10–100 ml inyeksiya uchun konsentrat" },
-  { num: "116", cat: "O'smaga qarshi", name: "Paklitaksel", form: "6 mg/ml; 30–300 mg infuziya uchun konsentrat" },
-  { num: "117", cat: "O'smaga qarshi", name: "Doksorubitsin", form: "2 mg/ml 5–100 ml infuziya; 10–50 mg kukun" },
-  { num: "118", cat: "O'smaga qarshi", name: "Rituksimab", form: "100–500 mg/ml infuziya uchun konsentrat" },
-  { num: "119", cat: "O'smaga qarshi", name: "Trastuzumab", form: "100–440 mg infuziya uchun kukun; 600 mg/5 ml teri ostiga" },
-  { num: "120", cat: "Tashxis vositalari", name: "Yogeksol", form: "300–350 mg yod/ml 20–200 ml inyeksiya" },
-  { num: "121", cat: "Gepatoprotektorlar", name: "Ursodezoksixolat kislotasi", form: "250–500 mg kapsulalar, tabletkalar; suspenziya" },
-  { num: "122", cat: "Gepatoprotektorlar", name: "Ademetionin", form: "400 mg tabletkalar; inyeksiya uchun kukun" },
-  { num: "123", cat: "Podagraga qarshi", name: "Allopurinol", form: "100 mg; 150 mg; 200 mg; 300 mg tabletkalar" },
-  { num: "124", cat: "Antiseptiklar", name: "Vodorod peroksid", form: "3% eritma 25–100 ml" },
-  { num: "125", cat: "Antiseptiklar", name: "Xlorgeksidin", form: "0,05–0,5% eritma; gel; vaginal shamcha; sprey" },
-  { num: "126", cat: "Vaksinalar", name: "Ko'kyutal, Difteriya, Qoqshol (AKDS)", form: "1 doza; 10 doza inyeksiya" },
-  { num: "127", cat: "Vaksinalar", name: "Gepatit B vaksinasi", form: "1 doza; 10 doza inyeksiya" },
-  { num: "128", cat: "Vaksinalar", name: "Qizamiq, parotit va qizilcha vaksinasi", form: "1 doza; 10 doza" },
-  { num: "129", cat: "Vaksinalar", name: "Pnevmokokk vaksinasi", form: "0,5 ml 1 doza; 2,5 ml 5 doza" },
-  { num: "130", cat: "Tuz eritmalari", name: "Natriy xlorid 0,9%", form: "100–1000 ml infuziya uchun eritma" },
+  { num:"1", cat:"Narkoz vositalari", name:"Izofluran", form:"100 ml; 250 ml ingalatsiya uchun eritma" },
+  { num:"2", cat:"Narkoz vositalari", name:"Sevofluran", form:"250 ml ingalatsiya uchun eritma" },
+  { num:"3", cat:"Narkoz vositalari", name:"Natriy oksibutirat", form:"200 mg/ml 5 ml; 10 ml inyeksiya uchun eritma" },
+  { num:"4", cat:"Narkoz vositalari", name:"Tiopental natriy", form:"0,5 g; 1,0 g liofillangan kukun" },
+  { num:"5", cat:"Narkoz vositalari", name:"Ketamin", form:"50 mg/ml 2 ml; 5 ml inyeksiya uchun eritma" },
+  { num:"6", cat:"Narkoz vositalari", name:"Propofol", form:"1% 10 ml; 20 ml / 2% 50 ml inyeksiya emulsiyasi" },
+  { num:"7", cat:"Uxlatuvchi vositalar", name:"Midazolam", form:"5 mg/ml 1 ml; 3 ml inyeksiya uchun eritma" },
+  { num:"8", cat:"Tutqanoqqa qarshi", name:"Fenobarbital", form:"100 mg tabletkalar, kukun" },
+  { num:"9", cat:"Tutqanoqqa qarshi", name:"Karbamazepin", form:"200 mg; 400 mg tabletkalar" },
+  { num:"10", cat:"Tutqanoqqa qarshi", name:"Valproat kislotasi", form:"300–500 mg tabletkalar, kapsulalar, sirop, inyeksiya" },
+  { num:"11", cat:"Tutqanoqqa qarshi", name:"Lamotridjin", form:"25 mg; 50 mg; 100 mg tabletkalar" },
+  { num:"12", cat:"Neyroleptiklar", name:"Galoperidol", form:"1,5 mg; 5 mg tabletkalar; 5 mg/ml inyeksiya" },
+  { num:"13", cat:"Neyroleptiklar", name:"Klozapin", form:"25 mg; 100 mg tabletkalar" },
+  { num:"14", cat:"Neyroleptiklar", name:"Risperidon", form:"1 mg; 2 mg; 3 mg; 4 mg tabletkalar" },
+  { num:"15", cat:"Neyroleptiklar", name:"Kvetiapin", form:"25–300 mg tabletkalar" },
+  { num:"16", cat:"Neyroleptiklar", name:"Olanzapin", form:"2,5–20 mg tabletkalar" },
+  { num:"17", cat:"Trankvilizatorlar", name:"Diazepam", form:"5 mg tabletkalar; 5 mg/ml 2 ml inyeksiya" },
+  { num:"18", cat:"Trankvilizatorlar", name:"Alprazolam", form:"0,25 mg; 0,5 mg; 1 mg tabletkalar" },
+  { num:"19", cat:"Antidepressantlar", name:"Amitriptilin", form:"10 mg; 25 mg tabletkalar; 10 mg/2ml inyeksiya" },
+  { num:"20", cat:"Antidepressantlar", name:"Fluoksetin", form:"20 mg kapsulalar" },
+  { num:"21", cat:"Antidepressantlar", name:"Sertralin", form:"50 mg; 100 mg tabletkalar" },
+  { num:"22", cat:"Antidepressantlar", name:"Essitalopram", form:"10 mg; 20 mg tabletkalar" },
+  { num:"23", cat:"Nootroplar", name:"Piratsetam", form:"200–1200 mg tabletkalar, kapsulalar, inyeksiya" },
+  { num:"24", cat:"Nootroplar", name:"Sitikolin", form:"500–1000 mg inyeksiya; 250 mg tabletkalar" },
+  { num:"25", cat:"Parkinsonizmga qarshi", name:"Levodopa/Karbidopa", form:"250 mg/25 mg tabletkalar" },
+  { num:"26", cat:"Narkotik analgetiklar", name:"Morfin", form:"10–100 mg tabletkalar; 10 mg/ml inyeksiya" },
+  { num:"27", cat:"Narkotik analgetiklar", name:"Fentanil", form:"50 mkg/ml 1 ml; 2 ml inyeksiya" },
+  { num:"28", cat:"Aralash analgetiklar", name:"Tramadol", form:"50 mg; 100 mg tabletkalar, kapsulalar, inyeksiya" },
+  { num:"29", cat:"Nonarkotik analgetiklar", name:"Metamizol natriy (Analgin)", form:"500 mg tabletkalar; 250–500 mg/ml inyeksiya" },
+  { num:"30", cat:"Nonarkotik analgetiklar", name:"Paratsetamol", form:"200–500 mg tabletkalar; suspenziya; infuziya; shamchalar" },
+  { num:"31", cat:"YANA (NSAIDs)", name:"Diklofenak", form:"25–100 mg tabletkalar; 75 mg inyeksiya; gel" },
+  { num:"32", cat:"YANA (NSAIDs)", name:"Ibuprofen", form:"200–800 mg tabletkalar, kapsulalar, suspenziya" },
+  { num:"33", cat:"YANA (NSAIDs)", name:"Meloksikam", form:"7,5 mg; 15 mg tabletkalar; inyeksiya; surtma" },
+  { num:"34", cat:"YANA (NSAIDs)", name:"Ketorolak", form:"7,5–10 mg tabletkalar; 30 mg/ml inyeksiya; gel" },
+  { num:"35", cat:"Miorelaksantlar", name:"Tolperizon", form:"50 mg; 150 mg tabletkalar; inyeksiya" },
+  { num:"36", cat:"Miorelaksantlar", name:"Tizanidin", form:"2 mg; 4 mg tabletkalar" },
+  { num:"37", cat:"Qusishga qarshi", name:"Metoklopramid", form:"10 mg tabletkalar; 0,5% 2 ml inyeksiya" },
+  { num:"38", cat:"Qusishga qarshi", name:"Ondansetron", form:"4 mg; 8 mg tabletkalar; 2 mg/ml inyeksiya" },
+  { num:"39", cat:"Me'da yarasi uchun", name:"Ranitidin", form:"150 mg tabletkalar; 2,5% 2 ml inyeksiya" },
+  { num:"40", cat:"Proton nasos ingibitorlari", name:"Omeprazol", form:"20 mg; 40 mg kapsulalar; 40 mg inyeksiya kukun" },
+  { num:"41", cat:"Proton nasos ingibitorlari", name:"Pantoprozol", form:"20 mg; 40 mg tabletkalar; 40 mg inyeksiya kukun" },
+  { num:"42", cat:"Astma va COPD uchun", name:"Salbutamol", form:"100 mkg/doza aerozol; ingalatsiya eritma" },
+  { num:"43", cat:"Astma va COPD uchun", name:"Budesonid + Formoterol", form:"(80+4,5) – (400+12) mkg aerozol" },
+  { num:"44", cat:"Astma va COPD uchun", name:"Tiotropiy bromid", form:"10 mkg; 18 mkg ingalatsiya kapsulalar" },
+  { num:"45", cat:"Bronxolitik vositalar", name:"Montelukast natriy", form:"10 mg tabletkalar; 4–5 mg chaynaladigan tabletkalar" },
+  { num:"46", cat:"Balg'am ko'chiruvchi", name:"Ambroksol", form:"30 mg tabletkalar; sirop; inyeksiya" },
+  { num:"47", cat:"Balg'am ko'chiruvchi", name:"Atsetilsistein", form:"600 mg vishillovchi tabletkalar; 200–600 mg granulalar" },
+  { num:"48", cat:"Yurak-qon tomir", name:"Trimetazidin", form:"20 mg; 35 mg uzaytirilgan tabletkalar" },
+  { num:"49", cat:"Antiaritmik", name:"Amiodaron", form:"200 mg tabletkalar; 50 mg/ml 3 ml inyeksiya" },
+  { num:"50", cat:"Antianginal", name:"Nitroglitserin", form:"0,5 mg sublingval tabletkalar; sprey; infuziya" },
+  { num:"51", cat:"Gipolipidemik", name:"Atorvastatin", form:"10 mg; 20 mg; 40 mg; 80 mg tabletkalar" },
+  { num:"52", cat:"Gipolipidemik", name:"Rozuvastatin", form:"5 mg; 10 mg; 20 mg; 40 mg tabletkalar" },
+  { num:"53", cat:"Antiagregantlar", name:"Klopidogrel", form:"75 mg; 300 mg tabletkalar" },
+  { num:"54", cat:"Antiagregantlar", name:"Atsetilsalitsil kislotasi (Aspirin)", form:"50–500 mg tabletkalar" },
+  { num:"55", cat:"Beta-blokatorlar", name:"Bisoprolol", form:"2,5 mg; 5,0 mg; 10,0 mg tabletkalar" },
+  { num:"56", cat:"Beta-blokatorlar", name:"Metoprolol suksinat", form:"25 mg; 50 mg; 100 mg tabletkalar" },
+  { num:"57", cat:"Beta-blokatorlar", name:"Nebivolol", form:"2,5 mg; 5,0 mg tabletkalar" },
+  { num:"58", cat:"Antigipertenziv", name:"Amlodipin", form:"2,5 mg; 5 mg; 10 mg tabletkalar" },
+  { num:"59", cat:"Antigipertenziv", name:"Nifedipin", form:"10 mg; 20 mg; 30 mg tabletkalar" },
+  { num:"60", cat:"Antigipertenziv (AXF ingibitorlar)", name:"Enalapril maleat", form:"2,5 mg; 5 mg; 10 mg tabletkalar" },
+  { num:"61", cat:"Antigipertenziv (AXF ingibitorlar)", name:"Lizinopril", form:"5 mg; 10 mg; 20 mg tabletkalar" },
+  { num:"62", cat:"Antigipertenziv (ARB)", name:"Lozartan", form:"25 mg; 50 mg; 100 mg tabletkalar" },
+  { num:"63", cat:"Antigipertenziv (ARB)", name:"Valsartan", form:"40 mg; 80 mg; 160 mg; 320 mg tabletkalar" },
+  { num:"64", cat:"Antikoagulyantlar", name:"Geparin", form:"5000–25000 XB inyeksiya; gel" },
+  { num:"65", cat:"Antikoagulyantlar", name:"Enoksaparin natriy", form:"2000–8000 anti-Xa XB inyeksiya eritma" },
+  { num:"66", cat:"Antikoagulyantlar", name:"Varfarin", form:"2,5 mg tabletkalar" },
+  { num:"67", cat:"Antikoagulyantlar", name:"Rivaroksaban", form:"2,5 mg; 10 mg; 15 mg; 20 mg tabletkalar" },
+  { num:"68", cat:"Diuretiklar", name:"Furosemid", form:"40 mg tabletkalar; 1% 2 ml inyeksiya" },
+  { num:"69", cat:"Diuretiklar", name:"Torasemid", form:"2,5–20 mg tabletkalar; inyeksiya" },
+  { num:"70", cat:"Diuretiklar", name:"Spironolakton", form:"25 mg; 50 mg; 100 mg tabletkalar, kapsulalar" },
+  { num:"71", cat:"Allergiyaga qarshi", name:"Setirizin", form:"10 mg tabletkalar; tomchilar; sirop" },
+  { num:"72", cat:"Allergiyaga qarshi", name:"Levotsetirizin", form:"5 mg tabletkalar; tomchilar; sirop" },
+  { num:"73", cat:"Allergiyaga qarshi", name:"Dezloratadin", form:"5 mg; 10 mg tabletkalar; eritma; sirop" },
+  { num:"74", cat:"Mahalliy anesteziya", name:"Lidokain", form:"0,5–10% eritma; plastir; aerozol" },
+  { num:"75", cat:"Gormonlar (kortikosteroidlar)", name:"Prednizolon", form:"5 mg tabletkalar; 30 mg/ml inyeksiya; surtma" },
+  { num:"76", cat:"Gormonlar (kortikosteroidlar)", name:"Deksametazon", form:"0,4% 1–2 ml inyeksiya; 0,5 mg tabletkalar" },
+  { num:"77", cat:"Gormonlar (kortikosteroidlar)", name:"Metilprednizolon", form:"4 mg; 16 mg tabletkalar; 250–1000 mg inyeksiya" },
+  { num:"78", cat:"Gormonlar (kortikosteroidlar)", name:"Beklometazon", form:"50–250 mkg/doza aerozol; nazal sprey" },
+  { num:"79", cat:"Gormonlar (kortikosteroidlar)", name:"Flutikazon propionat", form:"50–250 mkg/doza aerozol; nazal sprey" },
+  { num:"80", cat:"Qalqonsimon bez gormonlari", name:"Levotiroksin natriy", form:"25–100 mkg tabletkalar" },
+  { num:"81", cat:"Diabet vositalari", name:"Metformin", form:"500 mg; 850 mg; 1000 mg tabletkalar" },
+  { num:"82", cat:"Diabet vositalari", name:"Gliklazid", form:"30 mg; 60 mg tabletkalar" },
+  { num:"83", cat:"Diabet vositalari", name:"Glimepirid", form:"1 mg; 2 mg; 3 mg; 4 mg tabletkalar" },
+  { num:"84", cat:"Diabet vositalari", name:"Dapagliflozin", form:"5 mg; 10 mg tabletkalar" },
+  { num:"85", cat:"Insulinlar", name:"Qisqa ta'sirli insulin", form:"100 TB/ml 10 ml flakon; 3 ml kartridj" },
+  { num:"86", cat:"Insulinlar", name:"Uzoq ta'sirli insulin", form:"100 TB/ml 10 ml flakon; 3 ml kartridj" },
+  { num:"87", cat:"Vitaminlar", name:"Askorbin kislotasi (C vitamini)", form:"2,5–5% inyeksiya; tabletkalar; kukun" },
+  { num:"88", cat:"Vitaminlar", name:"Tiamin xlorid (B1 vitamini)", form:"2,5%; 5% 1 ml inyeksiya" },
+  { num:"89", cat:"Vitaminlar", name:"Piridoksin gidroxlorid (B6 vitamini)", form:"2,5%; 5% 1 ml inyeksiya" },
+  { num:"90", cat:"Vitaminlar", name:"Folat kislotasi (B9 vitamini)", form:"1 mg; 5 mg tabletkalar" },
+  { num:"91", cat:"Antibiotiklar (Penitsillin)", name:"Amoksitsillin", form:"250–500 mg kapsulalar, tabletkalar; suspenziya" },
+  { num:"92", cat:"Antibiotiklar (Penitsillin)", name:"Amoksitsillin/Klavulanat", form:"250–875 mg tabletkalar; suspenziya; venaga inyeksiya" },
+  { num:"93", cat:"Antibiotiklar (Tsefalosporin)", name:"Seftriakson", form:"0,5 g; 1,0 g inyeksiya uchun kukun" },
+  { num:"94", cat:"Antibiotiklar (Tsefalosporin)", name:"Sefazolin", form:"0,5 g; 1,0 g inyeksiya uchun kukun" },
+  { num:"95", cat:"Antibiotiklar (Tsefalosporin)", name:"Sefepim", form:"0,5 g; 1 g; 2 g inyeksiya uchun kukun" },
+  { num:"96", cat:"Antibiotiklar (Karbapenem)", name:"Meropenem", form:"500 mg; 1000 mg inyeksiya uchun kukun" },
+  { num:"97", cat:"Antibiotiklar (Makrolid)", name:"Azitromitsin", form:"250–500 mg tabletkalar, kapsulalar; suspenziya" },
+  { num:"98", cat:"Antibiotiklar (Makrolid)", name:"Klaritromitsin", form:"250–500 mg tabletkalar; suspenziya" },
+  { num:"99", cat:"Antibiotiklar (Ftorxinolon)", name:"Siprofloksatsin", form:"250–750 mg tabletkalar; 2 mg/ml infuziya" },
+  { num:"100", cat:"Antibiotiklar (Ftorxinolon)", name:"Levofloksatsin", form:"250–500 mg tabletkalar; 5 mg/ml infuziya" },
+  { num:"101", cat:"Antibiotiklar (Ftorxinolon)", name:"Moksifloksatsin", form:"400 mg tabletkalar; 400 mg/100 ml infuziya" },
+  { num:"102", cat:"Sil uchun", name:"Rifampitsin", form:"150–300 mg kapsulalar; infuziya uchun kukun" },
+  { num:"103", cat:"Sil uchun", name:"Izoniazid", form:"100–300 mg tabletkalar; sirop" },
+  { num:"104", cat:"Sil uchun", name:"Pirazinamid", form:"500 mg tabletkalar" },
+  { num:"105", cat:"Sil uchun", name:"Etambutol", form:"400 mg tabletkalar; infuziya uchun konsentrat" },
+  { num:"106", cat:"Virusga qarshi", name:"Asiklovir", form:"200–400 mg tabletkalar; infuziya; krem; surtma" },
+  { num:"107", cat:"Virusga qarshi", name:"Valatsiklovir", form:"300 mg; 500 mg; 1000 mg tabletkalar" },
+  { num:"108", cat:"Virusga qarshi (OITS)", name:"Dolutegravir + Lamivudin + Tenofovir", form:"50+300+300 mg tabletkalar" },
+  { num:"109", cat:"Virusga qarshi (Gepatit)", name:"Sofosbuvir", form:"400 mg tabletkalar" },
+  { num:"110", cat:"Virusga qarshi (Gepatit)", name:"Entekavir", form:"0,5 mg; 1,0 mg tabletkalar" },
+  { num:"111", cat:"Zamburug'ga qarshi", name:"Flukonazol", form:"50–200 mg kapsulalar, tabletkalar; infuziya; sirop" },
+  { num:"112", cat:"Zamburug'ga qarshi", name:"Itrakonazol", form:"100 mg tabletkalar, kapsulalar" },
+  { num:"113", cat:"Parazitga qarshi", name:"Metronidazol", form:"200–500 mg tabletkalar; infuziya; vaginal shamcha; gel" },
+  { num:"114", cat:"Parazitga qarshi", name:"Albendazol", form:"200–400 mg tabletkalar; suspenziya" },
+  { num:"115", cat:"O'smaga qarshi", name:"Sisplatin", form:"1 mg/ml 10–100 ml inyeksiya uchun konsentrat" },
+  { num:"116", cat:"O'smaga qarshi", name:"Paklitaksel", form:"6 mg/ml; 30–300 mg infuziya uchun konsentrat" },
+  { num:"117", cat:"O'smaga qarshi", name:"Doksorubitsin", form:"2 mg/ml 5–100 ml infuziya; 10–50 mg kukun" },
+  { num:"118", cat:"O'smaga qarshi", name:"Rituksimab", form:"100–500 mg/ml infuziya uchun konsentrat" },
+  { num:"119", cat:"O'smaga qarshi", name:"Trastuzumab", form:"100–440 mg infuziya uchun kukun" },
+  { num:"120", cat:"Tashxis vositalari", name:"Yogeksol", form:"300–350 mg yod/ml 20–200 ml inyeksiya" },
+  { num:"121", cat:"Gepatoprotektorlar", name:"Ursodezoksixolat kislotasi", form:"250–500 mg kapsulalar, tabletkalar; suspenziya" },
+  { num:"122", cat:"Gepatoprotektorlar", name:"Ademetionin", form:"400 mg tabletkalar; inyeksiya uchun kukun" },
+  { num:"123", cat:"Podagraga qarshi", name:"Allopurinol", form:"100 mg; 150 mg; 200 mg; 300 mg tabletkalar" },
+  { num:"124", cat:"Antiseptiklar", name:"Vodorod peroksid", form:"3% eritma 25–100 ml" },
+  { num:"125", cat:"Antiseptiklar", name:"Xlorgeksidin", form:"0,05–0,5% eritma; gel; vaginal shamcha; sprey" },
+  { num:"126", cat:"Vaksinalar", name:"Ko'kyutal, Difteriya, Qoqshol (AKDS)", form:"1 doza; 10 doza inyeksiya" },
+  { num:"127", cat:"Vaksinalar", name:"Gepatit B vaksinasi", form:"1 doza; 10 doza inyeksiya" },
+  { num:"128", cat:"Vaksinalar", name:"Qizamiq, parotit va qizilcha vaksinasi", form:"1 doza; 10 doza" },
+  { num:"129", cat:"Vaksinalar", name:"Pnevmokokk vaksinasi", form:"0,5 ml 1 doza; 2,5 ml 5 doza" },
+  { num:"130", cat:"Tuz eritmalari", name:"Natriy xlorid 0,9%", form:"100–1000 ml infuziya uchun eritma" },
 ];
 
-let currentTab = 'mkb';
-let filteredMkb = [...MKB_DATA];
-let filteredDrug = [...DRUG_DATA];
+// ─── STATE ───────────────────────────────────────────
+let currentPage = 'dashboard';
+const colors = ['blue','green','purple','amber','red'];
 
-document.getElementById('mkbCount').textContent = MKB_DATA.length + '+';
-document.getElementById('drugCount').textContent = DRUG_DATA.length + '+';
+// ─── UTILS ───────────────────────────────────────────
+function initials(name) {
+  return name.replace('Dr. ','').split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+function colorOf(s) { return colors[Math.abs(s.charCodeAt(0)+s.charCodeAt(1))%colors.length]; }
 
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-
-  if (tab === 'mkb') {
-    document.getElementById('mkbSection').style.display = '';
-    document.getElementById('drugSection').style.display = 'none';
-  } else {
-    document.getElementById('mkbSection').style.display = 'none';
-    document.getElementById('drugSection').style.display = '';
-  }
-
-  document.getElementById('searchInput').value = '';
-  renderMkb(MKB_DATA);
-  renderDrug(DRUG_DATA);
+function statusBadge(s) {
+  const map = {
+    'active':      '<span class="badge green">Faol</span>',
+    'discharged':  '<span class="badge blue">Chiqarilgan</span>',
+    'urgent':      '<span class="badge red">Shoshilinch</span>',
+    'Faol':        '<span class="badge green">Faol</span>',
+    'Ta\'tilda':   '<span class="badge blue">Ta\'tilda</span>',
+    'Navbatchilik':'<span class="badge amber">Navbatchilik</span>',
+    'Operatsiyada':'<span class="badge purple">Operatsiyada</span>',
+    'Tugallangan': '<span class="badge blue">Tugallangan</span>',
+    'Kutmoqda':    '<span class="badge amber">Kutmoqda</span>',
+    'Bekor qilindi':'<span class="badge red">Bekor qilindi</span>',
+  };
+  return map[s] || `<span class="badge blue">${s}</span>`;
 }
 
+// ─── NAV ─────────────────────────────────────────────
+function showPage(page, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  if (btn) btn.classList.add('active');
+  currentPage = page;
+  document.getElementById('searchInput').value = '';
+}
+
+// ─── SEARCH ──────────────────────────────────────────
 function doSearch() {
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  if (currentTab === 'mkb') {
-    const res = q ? MKB_DATA.filter(d =>
-      d.code.toLowerCase().includes(q) ||
-      d.name.toLowerCase().includes(q) ||
-      d.ru.toLowerCase().includes(q)
-    ) : MKB_DATA;
-    renderMkb(res);
-  } else {
-    const res = q ? DRUG_DATA.filter(d =>
-      d.name.toLowerCase().includes(q) ||
-      d.cat.toLowerCase().includes(q) ||
-      d.form.toLowerCase().includes(q)
-    ) : DRUG_DATA;
-    renderDrug(res);
-  }
+  if (currentPage === 'mkb') renderMkb(q ? MKB_DATA.filter(d =>
+    d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.ru.toLowerCase().includes(q)
+  ) : MKB_DATA);
+  else if (currentPage === 'drugs') renderDrugs(q ? DRUG_DATA.filter(d =>
+    d.name.toLowerCase().includes(q) || d.cat.toLowerCase().includes(q) || d.form.toLowerCase().includes(q)
+  ) : DRUG_DATA);
+  else if (currentPage === 'patients') renderPatients(q ? PATIENTS.filter(p =>
+    p.name.toLowerCase().includes(q) || p.diag.toLowerCase().includes(q) || p.dept.toLowerCase().includes(q)
+  ) : PATIENTS);
+  else if (currentPage === 'doctors') renderDoctors(q ? DOCTORS.filter(d =>
+    d.name.toLowerCase().includes(q) || d.spec.toLowerCase().includes(q)
+  ) : DOCTORS);
+  else if (currentPage === 'appointments') renderAppts(q ? APPOINTMENTS.filter(a =>
+    a.patient.toLowerCase().includes(q) || a.doctor.toLowerCase().includes(q) || a.reason.toLowerCase().includes(q)
+  ) : APPOINTMENTS);
+}
+
+// ─── FILTERS ─────────────────────────────────────────
+function filterPatients(f, btn) {
+  document.querySelectorAll('#page-patients .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPatients(f === 'all' ? PATIENTS : PATIENTS.filter(p => p.status === f));
+}
+function filterDoctors(f, btn) {
+  document.querySelectorAll('#page-doctors .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDoctors(f === 'all' ? DOCTORS : DOCTORS.filter(d => d.spec === f));
+}
+function filterAppts(f, btn) {
+  document.querySelectorAll('#page-appointments .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAppts(f === 'all' ? APPOINTMENTS : APPOINTMENTS.filter(a => a.status === f));
+}
+
+// ─── RENDERS ─────────────────────────────────────────
+function renderPatients(data) {
+  const grid = document.getElementById('patGrid');
+  const info = document.getElementById('patCountInfo');
+  info.innerHTML = `<strong>${data.length}</strong> ta bemor`;
+  if (!data.length) { grid.innerHTML = emptyState(); return; }
+  grid.innerHTML = data.map(p => `
+    <div class="person-card">
+      <div class="avatar ${colorOf(p.name)}">${initials(p.name)}</div>
+      <div class="person-info">
+        <div class="person-name">${p.name}</div>
+        <div class="person-sub">${p.age} yosh · ${p.gender} · ${p.dept}</div>
+        <div class="person-sub" style="margin-top:3px;color:var(--blue);font-size:12px;">${p.diag}</div>
+      </div>
+      <div class="person-meta">
+        ${statusBadge(p.status)}
+        <div style="font-size:11px;color:var(--gray);margin-top:6px;font-family:'IBM Plex Mono',monospace;">${p.id}</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px;">${p.admit}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderDoctors(data) {
+  const grid = document.getElementById('docGrid');
+  const info = document.getElementById('docCountInfo');
+  info.innerHTML = `<strong>${data.length}</strong> ta shifokor`;
+  if (!data.length) { grid.innerHTML = emptyState(); return; }
+  grid.innerHTML = data.map(d => `
+    <div class="person-card">
+      <div class="avatar ${colorOf(d.name)}">${initials(d.name)}</div>
+      <div class="person-info">
+        <div class="person-name">${d.name}</div>
+        <div class="person-sub">${d.spec} · ${d.degree}</div>
+        <div class="person-sub" style="margin-top:3px;font-size:12px;">Tajriba: ${d.exp} yil · Bemorlar: ${d.patients}</div>
+      </div>
+      <div class="person-meta">
+        ${statusBadge(d.status)}
+        <div style="font-size:11px;color:var(--gray);margin-top:6px;font-family:'IBM Plex Mono',monospace;">${d.id}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderAppts(data) {
+  const grid = document.getElementById('apptGrid');
+  const info = document.getElementById('apptCountInfo');
+  info.innerHTML = `<strong>${data.length}</strong> ta qabul`;
+  if (!data.length) { grid.innerHTML = emptyState(); return; }
+  grid.innerHTML = data.map(a => `
+    <div class="appt-card" style="border-left:4px solid ${a.status==='urgent'?'var(--red)':a.status==='Kutmoqda'?'var(--amber)':a.status==='Tugallangan'?'var(--green)':'var(--border)'}">
+      <div class="appt-time">
+        ${a.time}
+        <div class="date">${a.date}</div>
+      </div>
+      <div class="appt-info">
+        <div class="patient">${a.patient}</div>
+        <div class="doctor">${a.doctor} · ${a.dept}</div>
+        <div class="reason">${a.reason}</div>
+      </div>
+      <div>${statusBadge(a.status)}</div>
+    </div>`).join('');
 }
 
 function renderMkb(data) {
   const grid = document.getElementById('mkbGrid');
   const info = document.getElementById('mkbCountInfo');
   info.innerHTML = `<strong>${data.length}</strong> ta yozuv topildi`;
-
-  if (!data.length) {
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Hech narsa topilmadi</div></div>`;
-    return;
-  }
-
+  if (!data.length) { grid.innerHTML = emptyState(); return; }
   grid.innerHTML = data.map(d => {
-    const isClass = d.type === 'class';
-    const isGroup = d.type === 'group';
-    const codeClass = (isClass || isGroup) ? 'mkb-code category' : 'mkb-code';
-    return `
-    <div class="mkb-card">
-      <div class="${codeClass}">${d.code}</div>
+    const isHdr = d.type === 'class' || d.type === 'group';
+    return `<div class="mkb-card">
+      <div class="mkb-code${isHdr?' category':''}">${d.code}</div>
       <div class="mkb-info">
         <div class="mkb-name-uz">${d.name}</div>
         <div class="mkb-name-ru">${d.ru}</div>
@@ -799,16 +1223,11 @@ function renderMkb(data) {
   }).join('');
 }
 
-function renderDrug(data) {
+function renderDrugs(data) {
   const grid = document.getElementById('drugGrid');
   const info = document.getElementById('drugCountInfo');
   info.innerHTML = `<strong>${data.length}</strong> ta dori topildi`;
-
-  if (!data.length) {
-    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Hech narsa topilmadi</div></div>`;
-    return;
-  }
-
+  if (!data.length) { grid.innerHTML = emptyState(); return; }
   grid.innerHTML = data.map(d => `
     <div class="drug-card">
       <div class="drug-num">#${d.num}</div>
@@ -817,14 +1236,44 @@ function renderDrug(data) {
         <div class="drug-name">${d.name}</div>
         <div class="drug-form">${d.form}</div>
       </div>
-    </div>`
-  ).join('');
+    </div>`).join('');
 }
 
-// Initial render
-renderMkb(MKB_DATA);
-renderDrug(DRUG_DATA);
-</script>
+function renderDepts() {
+  const tbody = document.getElementById('deptBody');
+  tbody.innerHTML = DEPARTMENTS.map(d => `
+    <tr>
+      <td><strong>${d.name}</strong></td>
+      <td>${d.head}</td>
+      <td class="mono">${d.doctors}</td>
+      <td class="mono">${d.patients || '—'}</td>
+      <td class="mono">${d.rooms}</td>
+      <td>${statusBadge(d.status)}</td>
+    </tr>`).join('');
+}
 
+function emptyState() {
+  return `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Hech narsa topilmadi</div></div>`;
+}
+
+// ─── CLOCK ───────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clockEl').textContent =
+    now.toLocaleTimeString('uz-UZ', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ─── INIT ────────────────────────────────────────────
+document.getElementById('mkbCount').textContent = MKB_DATA.length + '+';
+document.getElementById('drugCount').textContent = DRUG_DATA.length + '+';
+renderPatients(PATIENTS);
+renderDoctors(DOCTORS);
+renderAppts(APPOINTMENTS);
+renderMkb(MKB_DATA);
+renderDrugs(DRUG_DATA);
+renderDepts();
+</script>
 </body>
 </html>
